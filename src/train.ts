@@ -27,5 +27,5 @@ function getHighestIndex(arr: number[]): number {
   
   console.log(getHighestIndex([5, 0, 12, 20, 84])); 
   
-
+  console.log("test"); 
   
