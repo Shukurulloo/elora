@@ -35,14 +35,20 @@ MASALAN: getHighestIndex([5, 21, 12, 21, 8]) return qiladi 1 sonini.
 
 /*H-TASK: 
 
-Shunday function tuzing, u string qabul qilib teskari qilib return qilsin
-MASALAN: gerReverse("hello") return qiladi "olleh"
+
+shunday function tuzing, u integerlardan iborat arrayni argument sifatida qabul qilib, 
+faqat positive qiymatlarni olib string holatda return qilsin
+MASALAN: getPositive([1, -4, 2]) return qiladi "12"
+
 
 */
 
+function getPositive(arr: number[]): string {
+   const musbatRaqam: string[] = arr
+   .filter(num => num > 0).map(num => num.toString());
 
-function getReverse(soz: string){
-   return soz.split('').reverse().join("")
+   return musbatRaqam.join("");
 }
 
-console.log(getReverse("Assalomu alaykum"));
+const result: string = getPositive([1, -4, 2, -55, 1]);
+console.log(result);
