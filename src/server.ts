@@ -12,3 +12,5 @@ mongoose.connect(process.env.MONGO_URL as string, {})
     })
 })
 .catch(err => console.log("ERROR on connection MongoDB", err));
+
+
