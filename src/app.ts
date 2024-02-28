@@ -16,8 +16,8 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 /** 4-ROUTERS **/
-app.use("/admin", routerAdmin);   // SSR: EJS
-app.use("/", router);             // SPA: REACT.      Middleware Design Pattern
+app.use("/admin", routerAdmin);   // SSR: EJS    Middleware Design Pattern
+app.use("/", router);             // SPA: REACT.      
 
 
 export default app; 
