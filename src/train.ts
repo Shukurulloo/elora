@@ -1,3 +1,20 @@
+/* Project Standards:
+   - Loggin standards
+   - Naming standards:
+      function, method, variable => CAMEL
+      class => PASCAL
+      folder => KEBAB
+      css => SNAKE
+   - Error handling
+
+*/
+
+
+
+
+
+
+
 /*G-TASK: 
 
 Shunday function tuzingki unga integerlardan iborat array pass bolsin
