@@ -24,7 +24,7 @@ memberNick: {
 
 memberPhone: {
     type: String,
-    index: {unique: true, sparse: true},
+    index: {unique: true, sparse: true},          // validation
     required: true,
 },
 
