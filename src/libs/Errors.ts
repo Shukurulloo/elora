@@ -14,6 +14,10 @@ export enum Message {
     NO_DATA_FOUND = "No data is found!",                 // Data topilmadi.
     CREATE_FAILED = " Create is failed!",                // Yangi ma'lumot qo'shilmadi.
     UPDATE_FAILED = "Update is failed!",                 // Malumot yangilashda xatolik yuzaga keldi.
+
+    USED_NICK_PHONE = "You are inserting alredy used nick or phone!",
+    NO_MEMBER_NICK = "No member with that member nick!",
+    WRONG_PASSWORD = "Wrong password, please try again!",
 }
 
 class Errors extends Error {           // customized class (inheritance)
