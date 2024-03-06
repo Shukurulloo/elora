@@ -70,20 +70,46 @@ MASALAN: getHighestIndex([5, 21, 12, 21, 8]) return qiladi 1 sonini.
 
 /*H-TASK: 
 
-
 shunday function tuzing, u integerlardan iborat arrayni argument sifatida qabul qilib, 
 faqat positive qiymatlarni olib string holatda return qilsin
 MASALAN: getPositive([1, -4, 2]) return qiladi "12"
 
-
 */
 
-function getPositive(arr: number[]): string {
-   const musbatRaqam: string[] = arr
-   .filter(num => num > 0).map(num => num.toString());
+// function getPositive(arr: number[]): string {
+//    const musbatRaqam: string[] = arr
+//    .filter(num => num > 0).map(num => num.toString());
 
-   return musbatRaqam.join("");
+//    return musbatRaqam.join("");
+// }
+
+// const result: string = getPositive([1, -4, 2, -55, 1]);
+// console.log(result);
+
+
+
+
+
+/* 
+I-TASK: 
+
+Shunday function tuzing, unga string argument pass bolsin. Function ushbu agrumentdagi digitlarni yangi stringda return qilsin
+MASALAN: getDigits("m14i1t") return qiladi "141"
+*/
+
+
+function getDigits(a: string): string {
+let result: string = "";
+
+for (let num of a) {
+   if (!isNaN(parseInt(num))) {
+   result += num;
+      }
+   } 
+
+return result;
+
 }
 
-const result: string = getPositive([1, -4, 2, -55, 1]);
-console.log(result);
+console.log("check:", getDigits("1-number aniqlandi 022"));
+console.log("check2:", getDigits("m14i1t"));
