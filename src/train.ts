@@ -102,18 +102,35 @@ MASALAN: getDigits("m14i1t") return qiladi "141"
 */
 
 
-function getDigits(a: string): string {
-let result: string = "";
+// function getDigits(a: string): string {
+// let result: string = "";
 
-for (let num of a) {
-   if (!isNaN(parseInt(num))) {
-   result += num;
-      }
+// for (let num of a) {
+//    if (!isNaN(parseInt(num))) {
+//    result += num;
+//       }
+//    } 
+
+// return result;
+
+// }
+
+// console.log("check:", getDigits("1-number aniqlandi 022"));
+// console.log("check2:", getDigits("m14i1t"));
+
+
+
+
+/** J-TASK: 
+
+Shunday function yozing, u string qabul qilsin va string ichidagi eng uzun sozni qaytarsin.
+MASALAN: findLongestWord("I come from Uzbekistan") return "Uzbekistan"
+*/
+
+function findLongestWord(a: string): string  {
+   const words: string[]= a.split(" "); 
+   return words.sort((a, b) => b.length - a.length)[0]; 
    } 
-
-return result;
-
-}
-
-console.log("check:", getDigits("1-number aniqlandi 022"));
-console.log("check2:", getDigits("m14i1t"));
+    
+    
+   console.log(findLongestWord("I come from Uzbekistan"));
