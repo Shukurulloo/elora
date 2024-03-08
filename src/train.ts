@@ -16,6 +16,10 @@
    ...
 */
 
+/* 
+   Traditional Frontend Development FD    => SSR  =  BSSR (Admin)  => EJS
+   Modern Frontend Development  FD        => SPA  (Users' application) => REACT (Library)
+*/
 
 
 

@@ -24,6 +24,11 @@ class Errors extends Error {           // customized class (inheritance)
     public code: Httpcode;
     public message: Message;
 
+    static standard = {                 // general errors
+        code: Httpcode.INTERNAL_SERVER_ERROR,
+        Message: Message.SOMETHING_WENT_WRONG
+    }
+
     constructor(statusCode: Httpcode, statusMessage: Message) {
         super();                        //  class o'zgaruvchilariga murojaat qilish va ularni boshqarishda ishlatiladi(malumot yuborish)
         this.code = statusCode;
