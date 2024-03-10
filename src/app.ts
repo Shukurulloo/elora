@@ -22,14 +22,15 @@ app.use(express.json());
 app.use(morgan(MORGAN_FORMAT));
 
 /** 2-SESSIONS **/
+// bu mantiq: kelayotgan requestni cokieni ichidan sidni olib ses-collectiondan izlaydi mavjud bo'lsa datani requestga bog'lab beradi
 app.use(
     session({
         secret: String(process.env.SESSION_SECRET), // SESSION_SECRET: sessionlarni hosil qilishda ishlatiladi uni 3-taraf ko'rmasligi kerak
         cookie: {
-          maxAge: 1000 * 3600 * 3, // 3h sessionlar qancha vaqt amal qilishini anglatadi
+          maxAge: 1000 * 3600 * 6, // 6h sessionlar qancha vaqt amal qilishini anglatadi
         },
         store: store,
-        resave: true,     // true: 10:30 auth => 13:30 agar 12:00da kirsak o'zini yangilaydi oxirgi kirganidan hisoblab o'chiradi. // false bo'lsa  3 soat orasda kirsaham o'sha vaqtda o'chadi
+        resave: true,     // true: 10:30 auth => 16:30 agar 12:00da kirsak o'zini yangilaydi oxirgi kirganidan hisoblab o'chiradi. // false bo'lsa  3 soat orasda kirsaham o'sha vaqtda o'chadi
         saveUninitialized: true
     })
 );

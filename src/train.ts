@@ -21,7 +21,11 @@
    Modern Frontend Development  FD        => SPA  (Users' application) => REACT (Library)
 */
 
+/* 
+   reqest join: har bir requestga kirvoladi
+   self destroy: o'zini o'zi o'chiradi
 
+*/
 
 
 

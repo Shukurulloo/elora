@@ -15,6 +15,7 @@ restaurantController.goHome = (req: Request, res: Response) => {
         // send | json | redirect | end | render
     } catch (err) {
         console.log("Error, goHome:", err);
+        res.redirect("/admin");  // hatolik bo'lsa adminga yuborish uchn
     }
 };
 
@@ -24,6 +25,7 @@ restaurantController.getSignup = (req: Request, res: Response) => {
         res.render("signup");
     } catch (err) {
         console.log("Error, getSignup:", err);
+        res.redirect("/admin");  // hatolik bo'lsa adminga yuborish uchn
     }
 }; 
 
@@ -33,6 +35,7 @@ restaurantController.getLogin = (req: Request, res: Response) => {
         res.render("login");
     } catch (err) {
         console.log("Error, getLogin:", err);
+        res.redirect("/admin");
     }
 };
 
@@ -56,7 +59,11 @@ restaurantController.processSignup = async(
         }); 
     } catch (err) {
         console.log("Error, processSignup", err);
-        res.send(err);
+        const message = 
+        err instanceof Error ? err.message : Message.SOMETHING_WENT_WRONG
+    res.send(
+        `<script> alert("${message}"); window.location.replace('admin/signup') </script>`
+        );
     }
 };
 
@@ -74,7 +81,25 @@ restaurantController.processLogin = async (req: AdminRequest, res: Response) => 
 
     } catch (err) {
         console.log("Error, processLogin", err);
-        res.send(err)
+        const message = //shart yozamz agar errorni intance si biz hosil qilgan error bo'lsa errorni ichiga kirib messageni ber
+            err instanceof Error ? err.message : Message.SOMETHING_WENT_WRONG // agar error bo'lmasa messagda SOMETHING_WENT_WRONG ber deymiz
+        res.send(
+            `<script> alert("${message}"); window.location.replace('admin/login') </script>`
+            );  //muofaqiyatli bo'lmasa widowni joyini login page ga yuborsin
+    }
+};
+
+
+// bu mantiq logout qilb session ni tozalab beradi va admin page ga yuboradi yani Homega
+restaurantController.logout = async (req: AdminRequest, res: Response) => {
+    try {    
+        console.log("logout");
+        req.session.destroy(function() { // requestni ichidan sessionni qabul qilib sessionni destroy(o'chirish) qilamz
+            res.redirect("/admin");   // destroy qilgandan keyin admin page yuboradi
+        });
+    } catch (err) {
+        console.log("Error, logout", err);
+        res.redirect("/admin");
     }
 };
 
