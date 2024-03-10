@@ -4,13 +4,13 @@ import MemberService from "../models/Member.service";
 import { LoginInput, MemberInput } from "../libs/types/member";
 import { MemberType } from "../libs/enums/member.anum";
 
-const memberService = new MemberService();
+const memberService = new MemberService(); // instanse olamz
 
-const restaurantController: T = {};
+const restaurantController: T = {};  // 
 restaurantController.goHome = (req: Request, res: Response) => {
     try {
         console.log("goHome");
-        res.render("home");
+        res.render("home"); // wiewni send qiladi
         // send | json | redirect | end | render
     } catch (err) {
         console.log("Error, goHome:", err);

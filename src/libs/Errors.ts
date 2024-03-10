@@ -1,4 +1,4 @@
-export enum Httpcode {
+export enum HttpCode {   //HttpCode codeproperty
     OK = 200,                      // So'rov muvaffaqiyatli bajarildi va natijalar qaytarildi.            
     CREATED = 201,                 // So'rov muvaffaqiyatli bajarildi va yangi resurs yaratildi.
     NOT_MODIFIED = 304,            // Agar serverda ma'lumot o'zgartirilmagan bo'lasa va yangilanmagan bo'lsa chiqadi.
@@ -21,15 +21,15 @@ export enum Message {
 }
 
 class Errors extends Error {           // customized class (inheritance)
-    public code: Httpcode;
+    public code: HttpCode;              // static property
     public message: Message;
 
     static standard = {                 // general errors
-        code: Httpcode.INTERNAL_SERVER_ERROR,
+        code: HttpCode.INTERNAL_SERVER_ERROR,
         Message: Message.SOMETHING_WENT_WRONG
     }
 
-    constructor(statusCode: Httpcode, statusMessage: Message) {
+    constructor(statusCode: HttpCode, statusMessage: Message) {
         super();                        //  class o'zgaruvchilariga murojaat qilish va ularni boshqarishda ishlatiladi(malumot yuborish)
         this.code = statusCode;
         this.message = statusMessage;

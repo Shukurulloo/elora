@@ -1,6 +1,6 @@
 import MemberModel from "../schema/Member.model";
 import { LoginInput, Member, MemberInput } from "../libs/types/member";
-import Errors, { Httpcode, Message } from "../libs/Errors";
+import Errors, { HttpCode, Message } from "../libs/Errors";
 import { MemberType } from "../libs/enums/member.anum";
 import * as bcrypt from "bcryptjs";
 
@@ -11,7 +11,7 @@ class MemberService {
     this.memberModel = MemberModel;
     }
 
-    /** SPA = Single Page Application */
+/** SPA = Single Page Application */
 
     public async signup(input: MemberInput): Promise<Member> {             //<void> hechnimani qaytarmaslik(return) uchn
         const salt = await bcrypt.genSalt();
@@ -20,10 +20,10 @@ class MemberService {
         try {
             const result = await this.memberModel.create(input);
             result.memberPassword = "";
-            return result.toJSON();
+            return result.toJSON(); // databacedan kelgan qiymatni jsonga o'giradi
         }   catch (err) {
-            console.error("Error, model:signup", err);
-            throw new Errors(Httpcode.BAD_REQUEST, Message.USED_NICK_PHONE);
+            console.error("Error, model:signup", err); // consolga hato habarini yuboradi
+            throw new Errors(HttpCode.BAD_REQUEST, Message.USED_NICK_PHONE);
         }
     }
 
@@ -31,31 +31,31 @@ class MemberService {
         // TODO: Consider member status later
         const member = await this.memberModel
             .findOne(
-                {memberNick: input.memberNick}, 
-                {memberNick: 1, memberPassword: 1}
+                {memberNick: input.memberNick}, // search
+                {memberNick: 1, memberPassword: 1} // obtions
             )
             .exec();
-        if(!member) throw new Errors(Httpcode.NOT_FOUND, Message.NO_MEMBER_NICK);
+        if(!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK);
 
             const isMatch = await bcrypt.compare(
                 input.memberPassword, 
                 member.memberPassword
             );
         if(!isMatch) {
-            throw new Errors(Httpcode.UNAUTHORIZED, Message.WRONG_PASSWORD);
+            throw new Errors(HttpCode.UNAUTHORIZED, Message.WRONG_PASSWORD);
         }
 
-        return await this.memberModel.findById(member._id).lean().exec();
+        return await this.memberModel.findById(member._id).lean().exec(); //lean bilan databacedagi datani tahrirqilsh mn
     }
 
-    /** SRR */
+/** SRR */
 
     public async processSignup(input: MemberInput): Promise<Member> {             //<void> hechnimani qaytarmaslik(return) uchn
         const exist = await this.memberModel
             .findOne({memberType: MemberType.RESTAURANT})
-            .exec();
+            .exec();      // restaran 1tadan oshmasligi uchun
         console.log("exist:", exist);
-        if(exist) throw new Errors(Httpcode.BAD_REQUEST, Message.CREATE_FAILED);
+        if(exist) throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
 
         console.log("before:", input.memberPassword);
         const salt = await bcrypt.genSalt();
@@ -67,7 +67,7 @@ class MemberService {
             result.memberPassword = "";
             return result;
         }   catch (err) {
-            throw new Errors(Httpcode.BAD_REQUEST, Message.CREATE_FAILED);
+            throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED); // databace monguse errorni o'rniga
         }
 
     }
@@ -78,7 +78,7 @@ class MemberService {
                 {memberNick: input.memberNick}, 
                 {memberNick: 1, memberPassword: 1})
             .exec();
-        if(!member) throw new Errors(Httpcode.NOT_FOUND, Message.NO_MEMBER_NICK);
+        if(!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK);
 
             const isMatch = await bcrypt.compare(
                 input.memberPassword, 
@@ -88,7 +88,7 @@ class MemberService {
         
 
         if(!isMatch) {
-            throw new Errors(Httpcode.UNAUTHORIZED, Message.WRONG_PASSWORD);
+            throw new Errors(HttpCode.UNAUTHORIZED, Message.WRONG_PASSWORD);
         }
 
         
