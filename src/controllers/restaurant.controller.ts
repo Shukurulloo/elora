@@ -1,7 +1,7 @@
-import {Request, Response} from "express";
-import {T} from "../libs/types/common";
+import { Request, Response } from "express";
+import { T } from "../libs/types/common";
 import MemberService from "../models/Member.service";
-import { LoginInput, MemberInput } from "../libs/types/member";
+import { AdminRequest, LoginInput, MemberInput } from "../libs/types/member";
 import { MemberType } from "../libs/enums/member.anum";
 
 const memberService = new MemberService(); // instanse olamz
@@ -36,31 +36,41 @@ restaurantController.getLogin = (req: Request, res: Response) => {
 };
 
 
-restaurantController.processSignup = async(req: Request, res: Response) => {
+restaurantController.processSignup = async(
+    req: AdminRequest, 
+    res: Response
+    ) => {  // oddiy requestni o'rniga AdminRequestni qo'ydik
     try {
         console.log("processSignup");
 
         const newMember: MemberInput = req.body;
         newMember.memberType = MemberType.RESTAURANT;
         const result = await memberService.processSignup(newMember);
-         // TODO: SESSIONS AUTHENTICATION
 
-        res.send(result);
+         // TODO:  bu jarayon: frondEndimizga (Postmanga) borib Cokies ni ichiga sid ni joylab keladi va 
+        // va databacedagi session collectionnga borib resul datani saqlaydi, 2 ta procces qilindi
+         req.session.member = result;   // sessionni ichida member bor
+         req.session.save(function() { // sessionlar muofaqqyatli save bo'lgach API ga javob yuboriladi
+            res.send(result);
+        }); 
     } catch (err) {
         console.log("Error, processSignup", err);
         res.send(err);
     }
 };
 
-restaurantController.processLogin = async (req: Request, res: Response) => {
+restaurantController.processLogin = async (req: AdminRequest, res: Response) => {
     try {
         console.log("processLogin");
 
         const input: LoginInput = req.body;
         const result = await memberService.processLogin(input);
-          // TODO: SESSIONS AUTHENTICATION
 
-        res.send(result);
+          req.session.member = result;   // sessionni ichida member bor
+          req.session.save(function() { // sessionlar muofaqqyatli save bo'lgach API ga javob yuboriladi
+             res.send(result);
+         }); 
+
     } catch (err) {
         console.log("Error, processLogin", err);
         res.send(err)
