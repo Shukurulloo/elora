@@ -131,10 +131,35 @@ Shunday function yozing, u string qabul qilsin va string ichidagi eng uzun sozni
 MASALAN: findLongestWord("I come from Uzbekistan") return "Uzbekistan"
 */
 
-function findLongestWord(a: string): string  {
-   const words: string[]= a.split(" "); 
-   return words.sort((a, b) => b.length - a.length)[0]; 
-   } 
+// function findLongestWord(a: string): string  {
+//    const words: string[]= a.split(" "); 
+//    return words.sort((a, b) => b.length - a.length)[0]; 
+//    } 
     
     
-   console.log(findLongestWord("I come from Uzbekistan"));
+//    console.log(findLongestWord("I come from Uzbekistan"));
+
+
+/** K-TASK: 
+
+Shunday function yozing, u string qabul qilsin va string ichidagi unli harflar sonini qaytarsin.
+MASALAN: countVowels("string") return 1;
+*/
+
+
+
+
+
+  const unlilar: any = ["a", "e", "i", "u", "o"];
+  function countVowels(str : string) {
+   let count: any = 0;
+   for (let harflar of str.toLowerCase()) {
+      if (unlilar.includes(harflar)) {
+      count++;
+      }
+   }
+   return count
+}
+
+console.log("check:", countVowels("Shukurullo"))
+ 
