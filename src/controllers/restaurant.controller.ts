@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { T } from "../libs/types/common";
 import MemberService from "../models/Member.service";
 import { AdminRequest, LoginInput, MemberInput } from "../libs/types/member";
@@ -103,7 +103,10 @@ restaurantController.logout = async (req: AdminRequest, res: Response) => {
     }
 };
 
-restaurantController.checkAuthSession = async (req: AdminRequest, res: Response) => {
+restaurantController.checkAuthSession = async ( 
+    req: AdminRequest, 
+    res: Response
+    ) => {
     try {
         console.log("processLogin");
         if(req.session?.member) 
@@ -114,5 +117,20 @@ restaurantController.checkAuthSession = async (req: AdminRequest, res: Response)
         res.send(err)
     }
 };
+// murojatchi kim ekanini aniqlash un va restaurant ekani haqida malumot berish kerak yani urlni faqat retran ishlatishi mumkin
+restaurantController.verifyRestaurant = ( 
+    req: AdminRequest, 
+    res: Response, 
+    next: NextFunction //middlever bo'lgani un next kerak
+  ) => { 
+          if(req.session?.member?.memberType === MemberType.RESTAURANT) {
+                req.member = req.session.member // murojatcho restaurant bo'lsa keyingi progresga o'tkashi
+                next(); //nextni qo'ymasa process qotib qoladi
+        } else { // hatolik bo'lsa
+            const message = Message.NOT_AUTHENTICATED
+            res.send(`<script> alert("${message}"); window.location.replace('/admin/login'); </script>`
+            );
+          }
+}
 
 export default restaurantController;
