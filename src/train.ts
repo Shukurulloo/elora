@@ -146,10 +146,6 @@ Shunday function yozing, u string qabul qilsin va string ichidagi unli harflar s
 MASALAN: countVowels("string") return 1;
 */
 
-
-
-
-
   const unlilar: any = ["a", "e", "i", "u", "o"];
   function countVowels(str : string) {
    let count: any = 0;
