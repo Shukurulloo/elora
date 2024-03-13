@@ -9,21 +9,30 @@
 
 */
 
-/* 
+/*  Request
    Traditional Api
    Rest Api
    GraphQL Api
    ...
 */
 
-/* 
+/*  Frontend Development
    Traditional Frontend Development FD    => SSR  =  BSSR (Admin)  => EJS
    Modern Frontend Development  FD        => SPA  (Users' application) => REACT (Library)
 */
 
-/* 
+/* Cookies
    reqest join: har bir requestga kirvoladi
    self destroy: o'zini o'zi o'chiradi
+
+*/
+
+/* Validation:
+   frontend validation
+   Pipe validation
+   Backend validation
+   Databace validation
+
 
 */
 
