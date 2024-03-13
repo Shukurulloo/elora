@@ -155,16 +155,32 @@ Shunday function yozing, u string qabul qilsin va string ichidagi unli harflar s
 MASALAN: countVowels("string") return 1;
 */
 
-  const unlilar: any = ["a", "e", "i", "u", "o"];
-  function countVowels(str : string) {
-   let count: any = 0;
-   for (let harflar of str.toLowerCase()) {
-      if (unlilar.includes(harflar)) {
-      count++;
-      }
-   }
-   return count
+//   const unlilar: any = ["a", "e", "i", "u", "o"];
+//   function countVowels(str : string) {
+//    let count: any = 0;
+//    for (let harflar of str.toLowerCase()) {
+//       if (unlilar.includes(harflar)) {
+//       count++;
+//       }
+//    }
+//    return count
+// }
+
+// console.log("check:", countVowels("Shukurullo"))
+ 
+/** 
+L-TASK: 
+
+Shunday function yozing, u string qabul qilsin va string ichidagi hamma sozlarni chappasiga yozib va sozlar ketma-ketligini buzmasdan stringni qaytarsin.
+MASALAN: reverseSentence("we like coding!") return "ew ekil gnidoc";
+*/
+
+
+
+function reverseSentence(sentence: string): string {
+   const words: string[] = sentence.split(" ");
+   const reversedWords: string[] = words.map(word => word.split("").reverse().join(""));
+   return reversedWords.join(" ");
 }
 
-console.log("check:", countVowels("Shukurullo"))
- 
+console.log(reverseSentence("we like coding!"));
