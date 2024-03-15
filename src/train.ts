@@ -50,6 +50,22 @@
 
 
 
+/**  ejs sintaks
+   <%- %>    => includes,(포함)
+   <%= %>    =>  qiymat chaqirish, qabul qilish
+   <% %>     => control flow (nazorat oqimi)
+*/
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*G-TASK: 
