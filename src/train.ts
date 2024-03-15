@@ -195,10 +195,32 @@ MASALAN: reverseSentence("we like coding!") return "ew ekil gnidoc";
 
 
 
-function reverseSentence(sentence: string): string {
-   const words: string[] = sentence.split(" ");
-   const reversedWords: string[] = words.map(word => word.split("").reverse().join(""));
-   return reversedWords.join(" ");
+// function reverseSentence(sentence: string): string {
+//    const words: string[] = sentence.split(" ");
+//    const reversedWords: string[] = words.map(word => word.split("").reverse().join(""));
+//    return reversedWords.join(" ");
+// }
+
+// console.log(reverseSentence("we like coding!"));
+
+
+/** Man -TASK: 
+
+Shunday function yozing, u raqamlardan tashkil topgan array qabul qilsin
+va array ichidagi har bir raqam uchun raqamni ozi va hamda osha raqamni kvadratidan tashkil topgan object hosil qilib, 
+hosil bolgan objectlarni array ichida qaytarsin.
+MASALAN: getSquareNumbers([1, 2, 3]) return [{number: 1, square: 1}, {number: 2, square: 4}, {number: 3, square: 9}];
+ */
+
+interface SquareObject {
+   number: number;
+   square: number;
 }
 
-console.log(reverseSentence("we like coding!"));
+function getSquareNumbers(arr: number[]): SquareObject[] {
+   return arr.map(num => ({ number: num, square: num * num }));
+}
+
+const arr1: number[] = [1, 2, 3];
+const squareNumbers: SquareObject[] = getSquareNumbers(arr1);
+console.log(squareNumbers);
