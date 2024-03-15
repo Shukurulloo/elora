@@ -6,8 +6,8 @@ const productSchema = new Schema(
     {  // validation
      productStatus: {
         type: String,
-        enum: ProductStatus,
-        default: ProductStatus.PAUSE,
+        enum: ProductStatus,   // enumimzga kiritilgan qiymatlardan boshqa qiymat qabul qilmaydi degan manoda
+        default: ProductStatus.PAUSE, // ProductStatus ni PAUSE statesi bo'lsin
     },
 
      productCollection: {
@@ -43,7 +43,7 @@ const productSchema = new Schema(
         default: ProductVolume.ONE,
     },
 
-    productDesc: {
+    productDesc: { //제품 설명
         type: String,
         required: true,    
     },
@@ -59,11 +59,11 @@ const productSchema = new Schema(
     }
 
     }, 
-    {timestamps: true}       // updatedAt, createdAt
+    {timestamps: true}       // updatedAt, createdAt : Yangilangan va yaratilgan vaqti
     );
     // unique sharti
     productSchema.index(
-        {productName: 1, ProductSize: 1, ProductVolume: 1}, // somsa 1 marta ichimlik 1litr 1mart kitilish taminlanadi
-        {unique: true}
+        {productName: 1, ProductSize: 1, ProductVolume: 1}, // somsa 1 marta ichimlik 1litr 1mart kitilish taminlanadi 
+        {unique: true}  // 1.2 yoki 2litr kiritish mumkin bo'ladi
         );
     export default mongoose.model("Product", productSchema);

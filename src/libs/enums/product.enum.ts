@@ -1,4 +1,5 @@
-export enum ProductSize {
+ // prodact enum valulari
+export enum ProductSize {  
     SMALL = "SMALL",
     NORMAL = "NORMAL",
     LARGE = "LARGE",
@@ -13,9 +14,9 @@ export enum ProductVolume {
     TWO = 2,
 }
 
-export enum ProductStatus {
+export enum ProductStatus { // databacedan o'chib ketmaydi statusi o'zgaradi
     PAUSE = "PAUSE",
-    PROCESS = "PROCESS",
+    PROCESS = "PROCESS", // savdodagi
     DELETE = "DELETE",
 }
 
@@ -23,6 +24,6 @@ export enum ProductCollection {
     DISH = "DISH",
     SALAD = "SALAD",
     DESSERT = "DESERT",
-    DRINK = "DEINK",
+    DRINK = "DRINK",
     OTHER = "OTHER",
 }

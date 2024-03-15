@@ -39,5 +39,5 @@ export interface LoginInput {
 
 export interface AdminRequest extends Request {
     member: Member,
-    session: Session & {member: Member}      // sessionni ichiga memberni joylaymiz
+    session: Session & {member: Member}      // sessionni ichiga memberni bor type ga hatolik bermasligi uchun
 }

@@ -35,11 +35,11 @@ app.use(
         saveUninitialized: true
     })
 );
-
-app.use(function(req, res, next) {
+// browser uchn locals variablelari
+app.use(function(req, res, next) { // hamma qilinyotgan requestlar uchm ishga tushadi
   const sessionInstance = req.session as T;
-  res.locals.member = sessionInstance.member;
-  next();
+  res.locals.member = sessionInstance.member; // sessionsni ichidan memberni olib localsga berdik uni nomini member qildik va u ejsda ishladi
+  next(); // res.locals browserni variablelari
 
 })
 

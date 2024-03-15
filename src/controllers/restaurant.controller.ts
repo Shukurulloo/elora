@@ -3,7 +3,7 @@ import { T } from "../libs/types/common";
 import MemberService from "../models/Member.service";
 import { AdminRequest, LoginInput, MemberInput } from "../libs/types/member";
 import { MemberType } from "../libs/enums/member.anum";
-import { Message } from "../libs/Errors";
+import Errors, { HttpCode, Message } from "../libs/Errors";
 
 const memberService = new MemberService(); // instanse olamz
 
@@ -46,8 +46,13 @@ restaurantController.processSignup = async(
     ) => {  // oddiy requestni o'rniga AdminRequestni qo'ydik
     try {
         console.log("processSignup");
+        const file = req.file; //yuklangan rasmni qabul qilyapmiz
+        if(!file) // agar file yuklanmagan bo'lsa yuklanishni majbur qilamz
+            throw new Errors(HttpCode.BAD_REQUEST, Message.SOMETHING_WENT_WRONG);
+
 
         const newMember: MemberInput = req.body;
+        newMember.memberImage = file?.path;
         newMember.memberType = MemberType.RESTAURANT;
         const result = await memberService.processSignup(newMember);
 
@@ -55,7 +60,7 @@ restaurantController.processSignup = async(
         // va databacedagi session collectionnga borib resul datani saqlaydi, 2 ta procces qilindi
          req.session.member = result;   // sessionni ichida member bor
          req.session.save(function() { // sessionlar muofaqqyatli save bo'lgach API ga javob yuboriladi
-            res.send(result);
+            res.redirect("/admin/product/all");  // signup bo'lsa product list pagega yuborsin
         }); 
     } catch (err) {
         console.log("Error, processSignup", err);
@@ -76,7 +81,7 @@ restaurantController.processLogin = async (req: AdminRequest, res: Response) => 
 
           req.session.member = result;   // sessionni ichida member bor
           req.session.save(function() { // sessionlar muofaqqyatli save bo'lgach API ga javob yuboriladi
-             res.send(result);
+            res.redirect("/admin/product/all"); 
          }); 
 
     } catch (err) {
@@ -117,17 +122,20 @@ restaurantController.checkAuthSession = async (
         res.send(err)
     }
 };
-// murojatchi kim ekanini aniqlash un va restaurant ekani haqida malumot berish kerak yani urlni faqat retran ishlatishi mumkin
+
+// bu Authorization
+// verify => tekshirish
+// murojatchi kim ekanini aniqlash un va restaurant ekani haqida malumot berish kerak yani urlni faqat restran ishlatishi mumkin
 restaurantController.verifyRestaurant = ( 
     req: AdminRequest, 
     res: Response, 
-    next: NextFunction //middlever bo'lgani un next kerak
+    next: NextFunction //middlever bo'lgani un next shart
   ) => { 
           if(req.session?.member?.memberType === MemberType.RESTAURANT) {
-                req.member = req.session.member // murojatcho restaurant bo'lsa keyingi progresga o'tkashi
-                next(); //nextni qo'ymasa process qotib qoladi
+                req.member = req.session.member // murojatcho restaurant bo'lsa keyingi progresga o'tkazshi
+                next(); // nextni qo'ymasa process qotib qoladi
         } else { // hatolik bo'lsa
-            const message = Message.NOT_AUTHENTICATED
+            const message = Message.NOT_AUTHENTICATED /// kimdir kirishga harakat qilsa va u restaran bo'lmasa login page yuborsin
             res.send(`<script> alert("${message}"); window.location.replace('/admin/login'); </script>`
             );
           }

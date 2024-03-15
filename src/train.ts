@@ -21,29 +21,31 @@
    Modern Frontend Development  FD        => SPA  (Users' application) => REACT (Library)
 */
 
-/* Cookies
+/* Cookies 
    reqest join: har bir requestga kirvoladi
    self destroy: o'zini o'zi o'chiradi
 
 */
 
-/* Validation:
-   frontend validation
-   Pipe validation
+/* Validation:  datalarni to'g'ri kiritilayotganini tekshiruvchi validationlar 4 xil bo'ladi
+   frontend validation       fronenda malumotlarni to'g'ri kiritilayotganini tekshiradi
    Backend validation
    Databace validation
 
 
 */
 
+/**
+   Authentication => login bo'lganmi yo'qmi? login bo'lgan bo'lsa o'tkaz degani
+   Authorization  => login bo'lgan specific(maxsus) userlar ishlatadigon degani yani faqat adminlar qila oladi
+ */
 
+/** 
+   lips folderidagi utilsni ichida MVC ga dahildor bo'lmagan mantiqlar yozilishi mumkin
+   misol uchun uploader.ts rasm yuklash mantig'i
+*/
 
-
-
-
-
-
-
+// @ts-ignore typescript ishlamay turadi
 
 
 
