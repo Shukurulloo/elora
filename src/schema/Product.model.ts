@@ -26,7 +26,7 @@ const productSchema = new Schema(
         required: true,
     },
 
-    productLeftCount: {
+    productLeftCount: {  // mahsulot nechta borligi
         type: Number,
         required: true,
     },
@@ -38,14 +38,13 @@ const productSchema = new Schema(
     },
 
     productVolume: { // ichimlik
-        type: String,
+        type: Number,
         enum: ProductVolume,
         default: ProductVolume.ONE,
     },
 
     productDesc: { //제품 설명
         type: String,
-        required: true,    
     },
     
     productImages: {

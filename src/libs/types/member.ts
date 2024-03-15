@@ -40,4 +40,6 @@ export interface LoginInput {
 export interface AdminRequest extends Request {
     member: Member,
     session: Session & {member: Member}      // sessionni ichiga memberni bor type ga hatolik bermasligi uchun
+    file: Express.Multer.File;     //file mavjud , expressni ichida multer propertysini ichidan File qilib typesni belgilaymiz
+    files: Express.Multer.File[]
 }
