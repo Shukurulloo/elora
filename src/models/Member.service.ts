@@ -1,8 +1,9 @@
 import MemberModel from "../schema/Member.model";
-import { LoginInput, Member, MemberInput } from "../libs/types/member";
+import { LoginInput, Member, MemberInput, MemberUpdateInput } from "../libs/types/member";
 import Errors, { HttpCode, Message } from "../libs/Errors";
 import { MemberType } from "../libs/enums/member.enum";
 import * as bcrypt from "bcryptjs";
+import { shapeIntoMongooseObjectId } from "../libs/config";
 
 class MemberService {
     private readonly memberModel;
@@ -97,6 +98,17 @@ class MemberService {
         .exec();  
 
     if(!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);  // agar natija kelmasa Error
+
+    return result;      // agar natija kelsa resultni controllerga qaytaramz
+    }
+
+    public async updateChosenUser(input: MemberUpdateInput): Promise<Member> {   
+        input._id = shapeIntoMongooseObjectId(input._id);         // stringni mongoDB ObjectId ga o'tkazish mantig'i
+        const result = await this.memberModel
+        .findByIdAndUpdate({ _id: input._id }, input, { new: true })  // databacedan hamma userlarni topib ovolamz
+        .exec();                             // input ni o'zgartirib o'zgarganni qaytaramiz
+
+    if(!result) throw new Errors(HttpCode.NOT_MODIFIED, Message.UPDATE_FAILED);  // agar natija kelmasa Error
 
     return result;      // agar natija kelsa resultni controllerga qaytaramz
     }
