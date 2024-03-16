@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { T } from "../libs/types/common";
 import MemberService from "../models/Member.service";
 import { AdminRequest, LoginInput, MemberInput } from "../libs/types/member";
-import { MemberType } from "../libs/enums/member.anum";
+import { MemberType } from "../libs/enums/member.enum";
 import Errors, { HttpCode, Message } from "../libs/Errors";
 
 const memberService = new MemberService(); // instanse olamz
@@ -48,7 +48,7 @@ restaurantController.processSignup = async(
         console.log("processSignup");
         const file = req.file; //yuklangan rasmni qabul qilyapmiz
         if(!file) // agar file yuklanmagan bo'lsa yuklanishni majbur qilamz
-            throw new Errors(HttpCode.BAD_REQUEST, Message.SOMETHING_WENT_WRONG);
+            throw new Errors(HttpCode.BAD_REQUEST, Message.SOMETHING_WENT_WRONG); // castomazik
 
 
         const newMember: MemberInput = req.body;
@@ -107,6 +107,28 @@ restaurantController.logout = async (req: AdminRequest, res: Response) => {
         res.redirect("/admin");
     }
 };
+restaurantController.getUsers = async (req: Request, res: Response) => {
+    try {
+        console.log("getUsers");
+        const result = await memberService.getUsers();  // member schemaModuldan getUsersni chaqiramz
+        console.log("result:", result);
+
+        res.render("users", {users: result}) //users nomli object bn qaytgan natija yani resultni provide qilamz
+    } catch (err) {
+        console.log("Error, getUsers:", err);
+        res.redirect("/admin/login");
+    }
+};
+
+restaurantController.updateChosenUser = (req: Request, res: Response) => {
+    try {
+        console.log("updateChosenUser");
+    } catch (err) {
+        console.log("Error, updateChosenUser:", err);
+    }
+};
+
+
 
 restaurantController.checkAuthSession = async ( 
     req: AdminRequest, 
@@ -132,7 +154,7 @@ restaurantController.verifyRestaurant = (
     next: NextFunction //middlever bo'lgani un next shart
   ) => { 
           if(req.session?.member?.memberType === MemberType.RESTAURANT) {
-                req.member = req.session.member // murojatcho restaurant bo'lsa keyingi progresga o'tkazshi
+                req.member = req.session.member // murojatchi restaurant bo'lsa keyingi progresga o'tkazshi
                 next(); // nextni qo'ymasa process qotib qoladi
         } else { // hatolik bo'lsa
             const message = Message.NOT_AUTHENTICATED /// kimdir kirishga harakat qilsa va u restaran bo'lmasa login page yuborsin

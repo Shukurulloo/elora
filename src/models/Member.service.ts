@@ -1,7 +1,7 @@
 import MemberModel from "../schema/Member.model";
 import { LoginInput, Member, MemberInput } from "../libs/types/member";
 import Errors, { HttpCode, Message } from "../libs/Errors";
-import { MemberType } from "../libs/enums/member.anum";
+import { MemberType } from "../libs/enums/member.enum";
 import * as bcrypt from "bcryptjs";
 
 class MemberService {
@@ -69,7 +69,6 @@ class MemberService {
         }   catch (err) {
             throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED); // databace monguse errorni o'rniga
         }
-
     }
 
     public async processLogin(input: LoginInput): Promise<Member> {
@@ -82,17 +81,24 @@ class MemberService {
 
             const isMatch = await bcrypt.compare(
                 input.memberPassword, 
-                member.memberPassword);
-
-        // const isMatch = input.memberPassword === member.memberPassword;
+                member.memberPassword
+                );
         
-
         if(!isMatch) {
             throw new Errors(HttpCode.UNAUTHORIZED, Message.WRONG_PASSWORD);
         }
 
-        
         return await this.memberModel.findById(member._id).exec();
+    }
+
+    public async getUsers(): Promise<Member[]> {            
+        const result = await this.memberModel
+        .find({ memberType: MemberType.USER })  // databacedan hamma userlarni topib ovolamz
+        .exec();  
+
+    if(!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);  // agar natija kelmasa Error
+
+    return result;      // agar natija kelsa resultni controllerga qaytaramz
     }
 }
 

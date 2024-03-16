@@ -1,5 +1,5 @@
 import { ObjectId } from "mongoose"
-import { MemberStatus, MemberType } from "../enums/member.anum";
+import { MemberStatus, MemberType } from "../enums/member.enum";
 import { Request } from "express";
 import { Session } from "express-session";
 
@@ -39,7 +39,7 @@ export interface LoginInput {
 
 export interface AdminRequest extends Request {
     member: Member,
-    session: Session & {member: Member}      // sessionni ichiga memberni bor type ga hatolik bermasligi uchun
+    session: Session & {member: Member}      // sessionni ichida memberni bor type ga hatolik bermasligi uchun
     file: Express.Multer.File;     //file mavjud , expressni ichida multer propertysini ichidan File qilib typesni belgilaymiz
     files: Express.Multer.File[]
 }

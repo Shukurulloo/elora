@@ -43,7 +43,7 @@ const productSchema = new Schema(
         default: ProductVolume.ONE,
     },
 
-    productDesc: { //제품 설명
+    productDesc: {  // 제품 설명
         type: String,
     },
     
@@ -62,7 +62,7 @@ const productSchema = new Schema(
     );
     // unique sharti
     productSchema.index(
-        {productName: 1, ProductSize: 1, ProductVolume: 1}, // somsa 1 marta ichimlik 1litr 1mart kitilish taminlanadi 
+        {productName: 1, productSize: 1, productVolume: 1}, // somsa 1 marta ichimlik 1litr 1mart kitilish taminlanadi 
         {unique: true}  // 1.2 yoki 2litr kiritish mumkin bo'ladi
         );
     export default mongoose.model("Product", productSchema);

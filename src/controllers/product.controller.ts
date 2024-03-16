@@ -29,7 +29,7 @@ productController.createNewProduct = async (req: AdminRequest, res: Response) =>
     try {
         console.log("createNewProduct");
         /** buyerda kirib kelayotgan reques filesni ichidagi pathlarni ProductInput interface data ga saqlandi*/   
-        if(!req.files?.length)   
+        if(!req.files?.length)   // kamida 1 ta rasm bo'lmasa error
             throw new Errors(HttpCode.INTERNAL_SERVER_ERROR, Message.CREATE_FAILED);
 
         const data: ProductInput = req.body;
@@ -45,7 +45,7 @@ productController.createNewProduct = async (req: AdminRequest, res: Response) =>
      }  catch (err) {
         console.log("Error, createNewProduct:", err);
         const message = 
-            err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG; // bizni errorimzga tegishli bo'lsa
+            err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG; // bizni errorimzga tegishli bo'lsa aks holda umumiy
         res.send(
                 `<script> alert("${message}"); window.location.replace('admin/product/all') </script>`
         );
@@ -60,7 +60,7 @@ productController.updateChosenProduct = async (req: Request, res: Response) => {
       
         const result = await productService.updateChosenProduct(id, req.body)
 
-        res.status(HttpCode.OK).json({ data: result});
+        res.status(HttpCode.OK).json({ data: result}); // 200ni 
     }   catch (err) {
         console.log("Error, updateChosenProduct:", err);
         if(err instanceof Errors) res.status(err.code).json(err);

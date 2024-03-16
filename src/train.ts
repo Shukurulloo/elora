@@ -204,7 +204,7 @@ MASALAN: reverseSentence("we like coding!") return "ew ekil gnidoc";
 // console.log(reverseSentence("we like coding!"));
 
 
-/** Man -TASK: 
+/** M-TASK: 
 
 Shunday function yozing, u raqamlardan tashkil topgan array qabul qilsin
 va array ichidagi har bir raqam uchun raqamni ozi va hamda osha raqamni kvadratidan tashkil topgan object hosil qilib, 

@@ -1,5 +1,5 @@
 import mongoose, {Schema} from "mongoose";
-import { MemberType, MemberStatus } from "../libs/enums/member.anum";
+import { MemberType, MemberStatus } from "../libs/enums/member.enum";
 
 
 // Schema first & Code first
@@ -18,13 +18,13 @@ memberStatus: {
 
 memberNick: {
     type: String,
-    index: {unique: true, sparse: true},
+    index: {unique: true, sparse: true}, // buyerda databaceda boshqa user bilan nicklari bir xil bo'lmasligini taminlaydi bir xil bo'lsa error qaytaradi
     required: true,
 },
 
 memberPhone: {
     type: String,
-    index: {unique: true, sparse: true},          // validation
+    index: {unique: true, sparse: true},          // validation 
     required: true,
 },
 

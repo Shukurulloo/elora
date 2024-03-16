@@ -34,10 +34,12 @@ routerAdmin.post(
     productController.createNewProduct
     );
 routerAdmin.post(
-    "/product/:id", 
+    "/product/:id", // requestni ichidan params ni qabul qilishni maqsad qilyapmiz productdan keyingi kelgan string bu prduct id miz
     restaurantController.verifyRestaurant, 
     productController.updateChosenProduct
     );
+
 /** User */
+routerAdmin.get("/user/all", restaurantController.verifyRestaurant, restaurantController.getUsers)
 
 export default routerAdmin;
