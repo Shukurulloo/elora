@@ -212,15 +212,36 @@ hosil bolgan objectlarni array ichida qaytarsin.
 MASALAN: getSquareNumbers([1, 2, 3]) return [{number: 1, square: 1}, {number: 2, square: 4}, {number: 3, square: 9}];
  */
 
-interface SquareObject {
-   number: number;
-   square: number;
+// interface SquareObject {
+//    number: number;
+//    square: number;
+// }
+
+// function getSquareNumbers(arr: number[]): SquareObject[] {
+//    return arr.map(num => ({ number: num, square: num * num }));
+// }
+
+// const arr1: number[] = [1, 2, 3];
+// const squareNumbers: SquareObject[] = getSquareNumbers(arr1);
+// console.log(squareNumbers);
+
+
+/** N-TASK: 
+
+Shunday function yozing, u string qabul qilsin va string palindrom yani togri oqilganda ham, 
+orqasidan oqilganda ham bir hil oqiladigan soz ekanligini aniqlab boolean qiymat qaytarsin.
+MASALAN: palindromCheck("dad") return true;  palindromCheck("son") return false;
+ */
+
+
+
+function palindromCheck(input: string): boolean {
+
+   const reversedInput = input.split("").reverse().join("");
+   
+   return input === reversedInput;
 }
 
-function getSquareNumbers(arr: number[]): SquareObject[] {
-   return arr.map(num => ({ number: num, square: num * num }));
-}
+console.log("check:", palindromCheck("dad"));
+console.log("check2:", palindromCheck("son"));
 
-const arr1: number[] = [1, 2, 3];
-const squareNumbers: SquareObject[] = getSquareNumbers(arr1);
-console.log(squareNumbers);
