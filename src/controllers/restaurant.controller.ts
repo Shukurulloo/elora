@@ -67,7 +67,7 @@ restaurantController.processSignup = async(
         const message = 
         err instanceof Error ? err.message : Message.SOMETHING_WENT_WRONG
     res.send(
-        `<script> alert("${message}"); window.location.replace('admin/signup') </script>`
+        `<script> alert("${message}"); window.location.replace('/admin/signup') </script>`
         );
     }
 };
@@ -87,9 +87,9 @@ restaurantController.processLogin = async (req: AdminRequest, res: Response) => 
     } catch (err) {
         console.log("Error, processLogin", err);
         const message = //shart yozamz agar errorni intance si biz hosil qilgan error bo'lsa errorni ichiga kirib messageni ber
-            err instanceof Error ? err.message : Message.SOMETHING_WENT_WRONG // agar error bo'lmasa messagda SOMETHING_WENT_WRONG ber deymiz
+            err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG // agar error bo'lmasa messagda SOMETHING_WENT_WRONG ber deymiz
         res.send(
-            `<script> alert("${message}"); window.location.replace('admin/login') </script>`
+            `<script> alert("${message}"); window.location.replace('/admin/login') </script>`
             );  //muofaqiyatli bo'lmasa widowni joyini login page ga yuborsin
     }
 };
