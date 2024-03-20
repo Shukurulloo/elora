@@ -235,13 +235,38 @@ MASALAN: palindromCheck("dad") return true;  palindromCheck("son") return false;
 
 
 
-function palindromCheck(input: string): boolean {
+// function palindromCheck(input: string): boolean {
 
-   const reversedInput = input.split("").reverse().join("");
+//    const reversedInput = input.split("").reverse().join("");
    
-   return input === reversedInput;
+//    return input === reversedInput;
+// }
+
+// console.log("check:", palindromCheck("dad"));
+// console.log("check2:", palindromCheck("son"));
+
+
+
+/** 
+O-TASK:
+
+Shunday function yozing, u har xil valuelardan iborat array qabul qilsin va array ichidagi sonlar yigindisini hisoblab chiqqan javobni qaytarsin.
+MASALAN: calculateSumOfNumbers([10, "10", {son: 10}, true, 35]) return 45
+
+
+ */
+
+function calculateSumOfNumbers(arr: any[]): number {
+   let sum: number = 0; 
+   for (const element of arr) { 
+       if (typeof element === 'number' || (typeof element === 'string' && !isNaN(Number(element)))) {
+           sum += Number(element); 
+       }
+   }
+   return sum;
 }
 
-console.log("check:", palindromCheck("dad"));
-console.log("check2:", palindromCheck("son"));
+console.log(calculateSumOfNumbers([10, "10", {son: 10}, true, 35]));
+
+
 
