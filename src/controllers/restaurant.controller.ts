@@ -40,12 +40,13 @@ restaurantController.getLogin = (req: Request, res: Response) => {
 };
 
 
-restaurantController.processSignup = async(
+restaurantController.processSignup = async (
     req: AdminRequest, 
     res: Response
     ) => {  // oddiy requestni o'rniga AdminRequestni qo'ydik
     try {
         console.log("processSignup");
+        console.log("req.body:", req.body);
         const file = req.file; //yuklangan rasmni qabul qilyapmiz
         if(!file) // agar file yuklanmagan bo'lsa yuklanishni majbur qilamz
             throw new Errors(HttpCode.BAD_REQUEST, Message.SOMETHING_WENT_WRONG); // castomazik
@@ -65,7 +66,7 @@ restaurantController.processSignup = async(
     } catch (err) {
         console.log("Error, processSignup", err);
         const message = 
-        err instanceof Error ? err.message : Message.SOMETHING_WENT_WRONG
+        err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG
     res.send(
         `<script> alert("${message}"); window.location.replace('/admin/signup') </script>`
         );
@@ -76,6 +77,7 @@ restaurantController.processLogin = async (req: AdminRequest, res: Response) => 
     try {
         console.log("processLogin");
 
+        console.log("req.body:", req.body)
         const input: LoginInput = req.body;
         const result = await memberService.processLogin(input);
 
