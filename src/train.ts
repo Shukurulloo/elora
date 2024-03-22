@@ -275,3 +275,8 @@ MASALAN: objectToArray( {a: 10, b: 20}) return [['a', 10], ['b', 20]]
 
  */
 
+function objectToArray(obj: Record<string, any>): [string, any][] {
+   return Object.entries(obj);
+}
+
+console.log(objectToArray({a: 10, b: 20})); 
