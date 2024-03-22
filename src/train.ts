@@ -30,7 +30,7 @@
 /* Validation:  datalarni to'g'ri kiritilayotganini tekshiruvchi validationlar 4 xil bo'ladi
    frontend validation       fronenda malumotlarni to'g'ri kiritilayotganini tekshiradi
    Backend validation
-   Databace validation
+   Databace validation        schema validation
 
 
 */

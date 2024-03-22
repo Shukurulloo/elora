@@ -1,13 +1,13 @@
 console.log("Signup frontend javascript file");
-
+// Document Ready jarayoni qisqa variani $ bu jQueri belgisi
 $(function () { //prevender mantig'i
     const fileTarget = $(".file-box .upload-hidden");
-    let fileneme;
+    let filename;
 
     fileTarget.on("change", function () {
     if(window.FileReader) {
         const uploadFile = $(this)[0].files[0];
-        const fileType = uploadFile["type"];
+        const fileType = uploadFile["type"]; // Tanlangan faylning turi aniqlanadi.
         const validImageType = ["image/jpg", "image/jpeg", "image/png"]; // main type
         if(!validImageType.includes(fileType)) {
             alert(" Please insert only jpeg, jpg, png!")
@@ -16,7 +16,7 @@ $(function () { //prevender mantig'i
                 console.log(URL.createObjectURL(uploadFile));
                 $(".upload-img-frame")
                     .attr("src", URL.createObjectURL(uploadFile))
-                    .addClass("success")
+                    .addClass("success")   
             }
             filename = $(this)[0].files[0].name;
         }
@@ -26,19 +26,19 @@ $(function () { //prevender mantig'i
 });
 
 function validateSignupForm() {
-    const memberNick = $(".member-nick").val();
+    const memberNick = $(".member-nick").val(); // memberNickni qabul qilamz id bo'lsa #
     const memberPhone = $(".member-phone").val();
     const memberPassword = $(".member-password").val();
     const confirmPassword = $(".confirm-password").val();
 
     if(
-        memberNick === "" || 
+        memberNick === "" || // agar bo'sh string bo'lsa databacega yubormasin hato bo'lsa alartni ko'rstadi
         memberPhone === "" || 
         memberPassword === "" || 
         confirmPassword === ""
     ){
         alert("Please insert all required inputs!");
-        return false;
+        return false; // BackEndga otkazmay turadi
         }
 
     if (memberPassword !== confirmPassword) {
