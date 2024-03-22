@@ -38,7 +38,7 @@ const productSchema = new Schema(
     },
 
     productVolume: { // ichimlik
-        type: Number,
+        type: String,
         enum: ProductVolume,
         default: ProductVolume.ONE,
     },
@@ -62,7 +62,7 @@ const productSchema = new Schema(
     );
     // unique sharti
     productSchema.index(
-        {productName: 1, productSize: 1, productVolume: 1}, // somsa 1 marta ichimlik 1litr 1mart kitilish taminlanadi 
-        {unique: true}  // 1.2 yoki 2litr kiritish mumkin bo'ladi
+        { productName: 1, productSize: 1, productVolume: 1 }, // somsa 1 marta ichimlik 1litr 1mart kitilish taminlanadi 
+        { unique: true }  // 1.2 yoki 2litr kiritish mumkin bo'ladi
         );
     export default mongoose.model("Product", productSchema);

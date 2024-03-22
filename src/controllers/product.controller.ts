@@ -29,6 +29,7 @@ productController.getAllProducts = async (req: Request, res: Response) => {
 productController.createNewProduct = async (req: AdminRequest, res: Response) => {
     try {
         console.log("createNewProduct");
+        console.log("req.body:", req.body);
         /** buyerda kirib kelayotgan reques filesni ichidagi pathlarni ProductInput interface data ga saqlandi*/   
         if(!req.files?.length)   // kamida 1 ta rasm bo'lmasa error
             throw new Errors(HttpCode.INTERNAL_SERVER_ERROR, Message.CREATE_FAILED);
@@ -41,14 +42,14 @@ productController.createNewProduct = async (req: AdminRequest, res: Response) =>
         await productService.createNewProduct(data);
 
         res.send(
-            `<script> alert("Sucessful creation!"); window.location.replace('admin/product/all') </script>`
+            `<script> alert("Sucessful creation!"); window.location.replace('/admin/product/all') </script>`
             );
      }  catch (err) {
         console.log("Error, createNewProduct:", err);
         const message = 
             err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG; // bizni errorimzga tegishli bo'lsa aks holda umumiy
         res.send(
-                `<script> alert("${message}"); window.location.replace('admin/product/all') </script>`
+                `<script> alert("${message}"); window.location.replace('/admin/product/all') </script>`
         );
     }
 }
