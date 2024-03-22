@@ -6,12 +6,12 @@ $(function () { //prevender mantig'i
 
     fileTarget.on("change", function () {
     if(window.FileReader) {
-        const uploadFile = $(this)[0].files[0];
-        const fileType = uploadFile["type"]; // Tanlangan faylning turi aniqlanadi.
-        const validImageType = ["image/jpg", "image/jpeg", "image/png"]; // main type
+        const uploadFile = $(this)[0].files[0],
+            fileType = uploadFile["type"], // Tanlangan faylning turi aniqlanadi.
+            validImageType = ["image/jpg", "image/jpeg", "image/png"]; // main type
         if(!validImageType.includes(fileType)) {
             alert(" Please insert only jpeg, jpg, png!")
-        } else {
+        } else { 
             if(uploadFile) {
                 console.log(URL.createObjectURL(uploadFile));
                 $(".upload-img-frame")
@@ -26,10 +26,10 @@ $(function () { //prevender mantig'i
 });
 
 function validateSignupForm() {
-    const memberNick = $(".member-nick").val(); // memberNickni qabul qilamz id bo'lsa #
-    const memberPhone = $(".member-phone").val();
-    const memberPassword = $(".member-password").val();
-    const confirmPassword = $(".confirm-password").val();
+    const memberNick = $(".member-nick").val(), // memberNickni qabul qilamz id bo'lsa #
+        memberPhone = $(".member-phone").val(),
+        memberPassword = $(".member-password").val(),
+        confirmPassword = $(".confirm-password").val();
 
     if(
         memberNick === "" || // agar bo'sh string bo'lsa databacega yubormasin hato bo'lsa alartni ko'rstadi

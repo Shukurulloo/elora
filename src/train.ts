@@ -256,17 +256,22 @@ MASALAN: calculateSumOfNumbers([10, "10", {son: 10}, true, 35]) return 45
 
  */
 
-function calculateSumOfNumbers(arr: any[]): number {
-   let sum: number = 0; 
-   for (const element of arr) { 
-       if (typeof element === 'number' || (typeof element === 'string' && !isNaN(Number(element)))) {
-           sum += Number(element); 
-       }
-   }
-   return sum;
-}
+// function calculateSumOfNumbers(arr: any[]): number {
+//    let sum: number = 0; 
+//    for (const element of arr) { 
+//        if (typeof element === 'number' || (typeof element === 'string' && !isNaN(Number(element)))) {
+//            sum += Number(element); 
+//        }
+//    }
+//    return sum;
+// }
 
-console.log(calculateSumOfNumbers([10, "10", {son: 10}, true, 35]));
+// console.log(calculateSumOfNumbers([10, "10", {son: 10}, true, 35]));
 
+/** P-TASK:
 
+Shunday function yozing, u object qabul qilsin va arrayni object arrayga otkazib arrayni qaytarsin qaytarsin.
+MASALAN: objectToArray( {a: 10, b: 20}) return [['a', 10], ['b', 20]]
+
+ */
 
