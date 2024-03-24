@@ -268,15 +268,34 @@ MASALAN: calculateSumOfNumbers([10, "10", {son: 10}, true, 35]) return 45
 
 // console.log(calculateSumOfNumbers([10, "10", {son: 10}, true, 35]));
 
-/** P-TASK:
 
-Shunday function yozing, u object qabul qilsin va arrayni object arrayga otkazib arrayni qaytarsin qaytarsin.
-MASALAN: objectToArray( {a: 10, b: 20}) return [['a', 10], ['b', 20]]
 
- */
 
-function objectToArray(obj: Record<string, any>): [string, any][] {
-   return Object.entries(obj);
+
+
+// /** P-TASK:
+
+// Shunday function yozing, u object qabul qilsin va arrayni object arrayga otkazib arrayni qaytarsin qaytarsin.
+// MASALAN: objectToArray( {a: 10, b: 20}) return [['a', 10], ['b', 20]]
+
+//  */
+
+// function objectToArray(obj: Record<string, any>): [string, any][] {
+//    return Object.entries(obj);
+// }
+
+// console.log(objectToArray({a: 10, b: 20})); 
+
+
+// Q-task
+// Shunday function yozing, u 2 ta parametrgga ega bolib birinchisi object, ikkinchisi string. 
+// Agar string parametr objectni propertysi bolsa true bolmasa false qaytarsin.
+// MASALAN: hasProperty({name: "BMW", model: "M3"}, "model") return true; hasProperty({name: "BMW", model: "M3"}, "year") return false
+
+function hasProperty(obj: any, str: string) {
+   return obj.hasOwnProperty(str);
 }
 
-console.log(objectToArray({a: 10, b: 20})); 
+console.log(hasProperty({name: "BMW", model: "M3"}, "model"));
+console.log(hasProperty({name: "BMW", model: "M3"}, "class"));
+console.log(hasProperty({name: "BMW", model: "M3", year: "1999"}, "year"));
