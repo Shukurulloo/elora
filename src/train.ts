@@ -287,15 +287,30 @@ MASALAN: calculateSumOfNumbers([10, "10", {son: 10}, true, 35]) return 45
 // console.log(objectToArray({a: 10, b: 20})); 
 
 
-// Q-task
-// Shunday function yozing, u 2 ta parametrgga ega bolib birinchisi object, ikkinchisi string. 
-// Agar string parametr objectni propertysi bolsa true bolmasa false qaytarsin.
-// MASALAN: hasProperty({name: "BMW", model: "M3"}, "model") return true; hasProperty({name: "BMW", model: "M3"}, "year") return false
+// // Q-task
+// // Shunday function yozing, u 2 ta parametrgga ega bolib birinchisi object, ikkinchisi string. 
+// // Agar string parametr objectni propertysi bolsa true bolmasa false qaytarsin.
+// // MASALAN: hasProperty({name: "BMW", model: "M3"}, "model") return true; hasProperty({name: "BMW", model: "M3"}, "year") return false
 
-function hasProperty(obj: any, str: string) {
-   return obj.hasOwnProperty(str);
+// function hasProperty(obj: any, str: string) {
+//    return obj.hasOwnProperty(str);
+// }
+
+// console.log(hasProperty({name: "BMW", model: "M3"}, "model"));
+// console.log(hasProperty({name: "BMW", model: "M3"}, "class"));
+// console.log(hasProperty({name: "BMW", model: "M3", year: "1999"}, "year"));
+
+
+
+/** R-TASK:
+ Shunday function yozing, u string parametrga ega bolsin.  
+String "1+2" holatda pass qilinganda string ichidagi sonlar yigindisini number holatda qaytarsin.
+MASALAN: calculate("1+3") return 4;
+
+ */
+
+function sumOfNumbersFromString(str: string): number {
+   return str.split('+').reduce((acc, curr) => acc + parseInt(curr), 0);
 }
 
-console.log(hasProperty({name: "BMW", model: "M3"}, "model"));
-console.log(hasProperty({name: "BMW", model: "M3"}, "class"));
-console.log(hasProperty({name: "BMW", model: "M3", year: "1999"}, "year"));
+console.log(sumOfNumbersFromString("1+4")); 
