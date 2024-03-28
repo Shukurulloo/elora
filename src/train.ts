@@ -309,8 +309,27 @@ MASALAN: calculate("1+3") return 4;
 
  */
 
-function sumOfNumbersFromString(str: string): number {
-   return str.split('+').reduce((acc, curr) => acc + parseInt(curr), 0);
+// function sumOfNumbersFromString(str: string): number {
+//    return str.split('+').reduce((acc, curr) => acc + parseInt(curr), 0);
+// }
+
+// console.log(sumOfNumbersFromString("1+4")); 
+
+
+
+
+/** S-TASK:
+Shunday function yozing, u numberlardan tashkil topgan array qabul qilsin
+va osha numberlar orasidagi tushib qolgan sonni topib uni return qilsin
+MASALAN: missingNumber([3, 0, 1]) return 2
+ */
+
+function missingNumber(nums: number[]):number {
+   const n: number = nums.length,
+    expectedSum: number = (n * (n + 1)) / 2,
+    actualSum: number = nums.reduce((acc, curr) => acc + curr, 0),
+    missingNumber: number = expectedSum - actualSum;
+   return missingNumber
 }
 
-console.log(sumOfNumbersFromString("1+4")); 
+console.log("check:", missingNumber([4, 2, 0, 1]));
