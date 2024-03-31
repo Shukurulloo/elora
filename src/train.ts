@@ -324,12 +324,29 @@ va osha numberlar orasidagi tushib qolgan sonni topib uni return qilsin
 MASALAN: missingNumber([3, 0, 1]) return 2
  */
 
-function missingNumber(nums: number[]):number {
-   const n: number = nums.length,
-    expectedSum: number = (n * (n + 1)) / 2,
-    actualSum: number = nums.reduce((acc, curr) => acc + curr, 0),
-    missingNumber: number = expectedSum - actualSum;
-   return missingNumber
+// function missingNumber(nums: number[]):number {
+//    const n: number = nums.length,
+//     expectedSum: number = (n * (n + 1)) / 2,
+//     actualSum: number = nums.reduce((acc, curr) => acc + curr, 0),
+//     missingNumber: number = expectedSum - actualSum;
+//    return missingNumber
+// }
+
+// console.log("check:", missingNumber([4, 2, 0, 1]));
+
+
+
+// T-TASK:
+
+// Shunday function yozing, u sonlardan tashkil topgan 2 ta array qabul qilsin
+// va ikkala arraydagi sonlarni tartiblab bir arrayda qaytarsin
+// MASALAN: mergeSortedArrays([0,3,4,31], [4,6,30]); return [0,3,4,4,6,30,31]
+
+function mergeSortedArrays(arr1: number[], arr2: number[]): number[]{
+   return [...arr1, ...arr2].sort((a, b) => a - b);
 }
 
-console.log("check:", missingNumber([4, 2, 0, 1]));
+const arr1 = [0,3, 4, 31];
+const arr2 = [ 4, 6, 30,66]; 
+
+console.log(mergeSortedArrays(arr1, arr2));
