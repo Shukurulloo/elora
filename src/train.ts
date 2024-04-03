@@ -342,11 +342,33 @@ MASALAN: missingNumber([3, 0, 1]) return 2
 // va ikkala arraydagi sonlarni tartiblab bir arrayda qaytarsin
 // MASALAN: mergeSortedArrays([0,3,4,31], [4,6,30]); return [0,3,4,4,6,30,31]
 
-function mergeSortedArrays(arr1: number[], arr2: number[]): number[]{
-   return [...arr1, ...arr2].sort((a, b) => a - b);
+// function mergeSortedArrays(arr1: number[], arr2: number[]): number[]{
+//    return [...arr1, ...arr2].sort((a, b) => a - b);
+// }
+
+// const arr1 = [0,3, 4, 31];
+// const arr2 = [ 4, 6, 30,66]; 
+
+// console.log(mergeSortedArrays(arr1, arr2));
+
+
+/** U-TASK:
+
+Shunday function yozing, uni number parametri bolsin
+va 0 dan berilgan parametrgacha bolgan oraliqdagi
+faqat toq sonlar nechtaligini return qilsin
+MASALAN: sumOdds(9) return 4; sumOdds(11) return 5;
+ */
+
+function countOddNumbers(n: number): number {
+   let count = 0;
+   for (let i = 1; i <= n; i += 2) {
+      count++;
+   }
+   return count;
 }
 
-const arr1 = [0,3, 4, 31];
-const arr2 = [ 4, 6, 30,66]; 
+console.log(countOddNumbers(3)); 
+console.log(countOddNumbers(11)); 
 
-console.log(mergeSortedArrays(arr1, arr2));
+
