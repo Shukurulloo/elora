@@ -5,20 +5,21 @@ import jwt from "jsonwebtoken";
 
 
 class AuthService {
+    private readonly secretToken
 
     constructor() {
-
+      this.secretToken = process.env.SECRET_TOKEN as string
     }
-
-    public async createToken(payload: Member) { // backentga tokenni hosil qildik
-        return new Promise((resolve, reject) => { // resolve: hal qilish, reject: rad qilish
-            const duration = `${AUTH_TIMER}h`; // davomiyligi const ga tengladik
+ // backentga tokenni hosil qilsh mantig'i
+    public async createToken(payload: Member) {       // payload member object type ko'rinishida
+        return new Promise((resolve, reject) => {      // resolve: hal qilish, reject: rad qilish
+            const duration = `${AUTH_TIMER}h`;       //  tookenni davomiyligini const ga tengladik. cokiniko bn bir xil bo'lishi kerak
             /** jwtni sign methotiga 4ta argument kiritiladi **/ 
             jwt.sign(
                 payload,                             // 1) payload: tokenga aylantiradigon data. 
                 process.env.SECRET_TOKEN as string,  //  2)SECRET_TOKEN ni string qilib
                 {  
-                expiresIn: duration                  // 3) expiresIn: davomiyligi.
+                expiresIn: duration                  // 3) expiresIn:  duddat tugashi.
             }, 
             (err, token) => {                        //  4) callback function
                 if(err)                                // Agar err bo'lsa customized err
@@ -29,6 +30,16 @@ class AuthService {
             }
             );
         });
+    }
+
+    // mavjud bo'lgan tokenni ichidan malumotlarni chiqarib beradigon yani tokendan objectga aylantiradigon method
+    public async checkAuth(token: string): Promise<Member> {
+        const result: Member = (await jwt.verify( 
+            token, 
+            this.secretToken
+            )) as Member;
+            console.log(`----- [AUTH] memberNick: ${result.memberNick} ----`);
+            return result;
     }
 }
 

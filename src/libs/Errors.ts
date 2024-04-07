@@ -20,7 +20,7 @@ export enum Message {
     NO_MEMBER_NICK = "No member with that member nick!",
     BLOCKED_USER = "You have been blocked, contact restaurant!",
     WRONG_PASSWORD = "Wrong password, please try again!",
-    NOT_AUTHENTICATED = "You are not authenticated, Plase login first!"
+    NOT_AUTHENTICATED = "You are not authenticated, Please login first!"
 }
 
 class Errors extends Error {           // customized class (inheritance)
