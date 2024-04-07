@@ -381,17 +381,40 @@ tashkil topgan object qaytarsin.
 MASALAN: countChars("hello") return {h: 1, e: 1, l: 2, o: 1}
  **/
 
-function countChars(s: string): { [key: string]: number } {
-  const charCount: { [key: string]: number } = {};
-  for (const char of s) {
-    if (char in charCount) {
-      charCount[char]++;
-    } else {
-      charCount[char] = 1;
-    }
-  }
-  return charCount;
+// function countChars(s: string): { [key: string]: number } {
+//   const charCount: { [key: string]: number } = {};
+//   for (const char of s) {
+//     if (char in charCount) {
+//       charCount[char]++;
+//     } else {
+//       charCount[char] = 1;
+//     }
+//   }
+//   return charCount;
+// }
+
+// const charCount = countChars("Shukurullo");
+// console.log("Shukurullo:" ,charCount); 
+
+
+
+/** W-TASK:
+
+Shunday function yozing, uni array va number parametrlari bolsin. 
+Function arrayni numberda berilgan uzunlikda kesib bolaklarga ajratilgan array holatida qaytarsin
+MASALAN: chunkArray([1,2,3,4,5,6,7,8,9,10], 3) return [[1,2,3], [4,5,6], [7,8,9], [10]]
+ */
+
+
+function chunkArray(arr: number[], chunkSize: number): number[][] {
+   const chunkedArray: number[][] = [];
+
+   for(let i = 0; i < arr.length; i += chunkSize) {
+      const chunk = arr.slice(i, i + chunkSize);
+      chunkedArray.push(chunk);
+   }
+
+   return chunkedArray
 }
 
-const charCount = countChars("Shukurullo");
-console.log("Shukurullo:" ,charCount); 
+console.log("test:", chunkArray([1,2,3,4,5,6,7,8,9,10,11,12], 3));
