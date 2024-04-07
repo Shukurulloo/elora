@@ -53,7 +53,7 @@ restaurantController.processSignup = async (
 
 
         const newMember: MemberInput = req.body;
-        newMember.memberImage = file?.path.replace(/\\/g, '');
+        newMember.memberImage = file?.path.replace(/\\/g, '/');
         newMember.memberType = MemberType.RESTAURANT;
         const result = await memberService.processSignup(newMember);
 
@@ -73,7 +73,10 @@ restaurantController.processSignup = async (
     }
 };
 
-restaurantController.processLogin = async (req: AdminRequest, res: Response) => {
+restaurantController.processLogin = async (
+    req: AdminRequest, 
+    res: Response
+    ) => {
     try {
         console.log("processLogin");
 
@@ -165,7 +168,8 @@ restaurantController.verifyRestaurant = (
                 next(); // nextni qo'ymasa process qotib qoladi
         } else { // hatolik bo'lsa
             const message = Message.NOT_AUTHENTICATED /// kimdir kirishga harakat qilsa va u restaran bo'lmasa login page yuborsin
-            res.send(`<script> alert("${message}"); window.location.replace('/admin/login'); </script>`
+            res.send(
+                `<script> alert("${message}"); window.location.replace('/admin/login'); </script>`
             );
           }
 }

@@ -16,7 +16,7 @@ const store = new MongoDBStore({  // natijani storega tenglaymiz
     collection: 'sessions', // mongoDbni sessions collectionida hosil qilish
   });
 
-/** 1-ENTRANCE **/
+/** 1-ENTRANCE  kirish**/
 const app = express();
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({extended: true}));
@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(cookieParser()); // cookieParserni inigratsiya qilamz
 app.use(morgan(MORGAN_FORMAT));
 
-/** 2-SESSIONS **/
+/** 2-SESSIONS adminka **/
 // bu mantiq: kelayotgan requestni cokieni ichidan sidni olib ses-collectiondan izlaydi mavjud bo'lsa datani requestga bog'lab beradi
 app.use(
     session({  // yuqoridagi sessionni qo'yib uni ichiga obtionlarni beramiz
@@ -45,7 +45,7 @@ app.use(function(req, res, next) { // hamma qilinyotgan requestlar uchm ishga tu
 
 })
 
-/** 3-VIEWS **/
+/** 3-VIEWS adminka**/
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 

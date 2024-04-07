@@ -28,7 +28,7 @@ routerAdmin.get(
 );
 routerAdmin.post(
     "/product/create",
-    restaurantController.verifyRestaurant, // productlarni ham faqat restauran member hosil qiladdi yani restaranga bo'g'liq bogani uchun bu q'yildu
+    restaurantController.verifyRestaurant, // productlarni ham faqat restauran member hosil qiladdi yani restaranga bo'g'liq bogani uchun bu q'yildi
     // uploadProductImage.single("productImage"),
     makeUploader("products").array("productImages", 5), // 5ta img
     productController.createNewProduct
