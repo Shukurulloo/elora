@@ -10,7 +10,7 @@ class AuthService {
 
     }
 
-    public async createToken(payload: Member) {
+    public async createToken(payload: Member) { // backentga tokenni hosil qildik
         return new Promise((resolve, reject) => { // resolve: hal qilish, reject: rad qilish
             const duration = `${AUTH_TIMER}h`; // davomiyligi const ga tengladik
             /** jwtni sign methotiga 4ta argument kiritiladi **/ 
@@ -20,7 +20,7 @@ class AuthService {
                 {  
                 expiresIn: duration                  // 3) expiresIn: davomiyligi.
             }, 
-            (err, token) => {                        //  4) err function
+            (err, token) => {                        //  4) callback function
                 if(err)                                // Agar err bo'lsa customized err
                  reject(
                     new Errors(HttpCode.UNAUTHORIZED, Message.TOKEN_CREATION_FAILED)
