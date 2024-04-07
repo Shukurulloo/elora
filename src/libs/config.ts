@@ -1,3 +1,4 @@
+export const AUTH_TIMER = 24;  // 24 soat davomida active bo'lishi
 export const MORGAN_FORMAT = `:method :url :response-time [:status] \n`;
 
 
