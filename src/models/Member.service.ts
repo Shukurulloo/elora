@@ -52,6 +52,16 @@ class MemberService {
         return await this.memberModel.findById(member._id).lean().exec(); //lean bilan databacedagi datani tahrirqilsh mn
     }
 
+    public async getMemberDetail(member: Member): Promise<Member> {
+        const memberId = shapeIntoMongooseObjectId(member._id); // stringda mongodb objectId ga o'giramz
+        const result = await this.memberModel // memberschema modulni chaqirib static methotiga shart kiritamz
+            .findOne({_id: memberId, memberStatus: MemberStatus.ACTIVE})// idsi memberidga teng bo'lib Active holatda bo'lishi kerk
+            .exec();
+        if(!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+
+        return result;
+    }
+
 /** SRR */
 
     public async processSignup(input: MemberInput): Promise<Member> {             //<void> hechnimani qaytarmaslik(return) uchn

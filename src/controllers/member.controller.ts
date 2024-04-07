@@ -64,6 +64,22 @@ memberController.logout = (req: ExtendedRequest, res: Response) => {
     }
 }
 
+memberController.getMemberDetail = async (
+    req: ExtendedRequest, 
+    res: Response
+    ) => {
+    try {
+        console.log("getMemberDetail");
+        const result = await memberService.getMemberDetail(req.member); // krb keloyatgan reqni ichidan userni datasi argument qilb pass bo'ldi
+
+        res.status(HttpCode.OK).json(result);
+    } catch (err) {
+        console.log("Error, logout:", err);
+        if(err instanceof Errors) res.status(err.code).json(err);
+        else res.status(Errors.standard.code).json(Errors.standard);
+    }
+}
+
 
 // tekshiramz
 memberController.verifyAuth = async (

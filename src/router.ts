@@ -7,10 +7,14 @@ router.post("/member/login", memberController.login);                    //rest.
 router.post("/member/signup", memberController.signup);
 router.post(
     "/member/logout",             // shu yerga post qilinsa
-    memberController.verifyAuth, // bu orqali auth bo'lgani tekshiriladi va keyingi jarayonga o'tib
+    memberController.verifyAuth, // bu middlwere orqali auth bo'lgani tekshiriladi va keyingi jarayonga o'tib
     memberController.logout      // cookiedan accessTokenni o'chirib beradi
     );
-router.get("/member/detail", memberController.verifyAuth);
+router.get(
+    "/member/detail", 
+    memberController.verifyAuth, 
+    memberController.getMemberDetail
+    );
 
 
 /** Product **/
