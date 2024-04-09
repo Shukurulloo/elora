@@ -18,10 +18,11 @@ const store = new MongoDBStore({  // natijani storega tenglaymiz
 
 /** 1-ENTRANCE  kirish**/
 const app = express();
-app.use(express.static(path.join(__dirname, "public")));
-app.use(express.urlencoded({extended: true}));
-app.use(express.json());
-app.use(cookieParser()); // cookieParserni inigratsiya qilamz
+app.use(express.static(path.join(__dirname, "public")));// klientga ochib bersh
+app.use("/uploads", express.static("./uploads")); // uploads folderi tashqariga ochildi
+app.use(express.urlencoded({extended: true}));//htmlda forum traditional reqni kirishga ruhsat beradi nested req
+app.use(express.json());// kirib kelayotgan res api ni body qismini serverga tashrifini amalga oshiradi
+app.use(cookieParser()); // cookieParserni install qilb, inigratsiya qilamz
 app.use(morgan(MORGAN_FORMAT));
 
 /** 2-SESSIONS adminka **/
@@ -46,8 +47,8 @@ app.use(function(req, res, next) { // hamma qilinyotgan requestlar uchm ishga tu
 })
 
 /** 3-VIEWS adminka**/
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views")); // midlver emas
+app.set("view engine", "ejs"); // ejs orqali BSSR qurilayotganini set qilamz
 
 /** 4-ROUTERS **/
 app.use("/admin", routerAdmin);   // SSR: EJS    Middleware Design Pattern

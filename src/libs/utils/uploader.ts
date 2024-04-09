@@ -18,7 +18,7 @@ function getTargetImageStorage(address: any) {
 }
 
 const makeUploader = (address: string) => { // qayerga yuklanishi shuyerga pass qilish kerak
-    const storage = getTargetImageStorage(address);
+    const storage = getTargetImageStorage(address); //aynan shu manzilga yuklab bersin
     return multer({ storage: storage}); 
 };
 

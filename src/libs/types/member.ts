@@ -51,8 +51,8 @@ export interface MemberUpdateInput {
 
 export interface ExtendedRequest extends Request {
     member: Member,
-    file: Express.Multer.File; 
-    files: Express.Multer.File[]
+    file: Express.Multer.File; // bitta img(file) bo'sa
+    files: Express.Multer.File[] // bir nechta img(file) bo'lsa
 }
 
 export interface AdminRequest extends Request {

@@ -1,7 +1,7 @@
 import {NextFunction, Request, Response} from "express";
 import {T} from "../libs/types/common";
 import MemberService from "../models/Member.service";
-import { ExtendedRequest, LoginInput, Member, MemberInput } from "../libs/types/member";
+import { ExtendedRequest, LoginInput, Member, MemberInput, MemberUpdateInput } from "../libs/types/member";
 import Errors, { HttpCode, Message } from "../libs/Errors";
 import AuthService from "../models/Auth.service";
 import { AUTH_TIMER } from "../libs/config";
@@ -64,6 +64,7 @@ memberController.logout = (req: ExtendedRequest, res: Response) => {
     }
 }
 
+// 2-video
 memberController.getMemberDetail = async (
     req: ExtendedRequest, 
     res: Response
@@ -74,22 +75,36 @@ memberController.getMemberDetail = async (
 
         res.status(HttpCode.OK).json(result);
     } catch (err) {
-        console.log("Error, logout:", err);
+        console.log("Error, getMemberDetail:", err);
         if(err instanceof Errors) res.status(err.code).json(err);
         else res.status(Errors.standard.code).json(Errors.standard);
     }
 }
 
+memberController.updateMember = async (req: ExtendedRequest, res: Response) => {
+    try {
+        console.log("updateMember");
+        const input: MemberUpdateInput = req.body; // request body dan kirib kelishi kerak bo'lgan datani typesi input bn belgilaymiz
+        if(req.file) input.memberImage = req.file.path.replace(/\\/, "/"); //yuklangan rasmni qabul qilamz yani agar requestdan kegan file mavjud bo'lsa multer ishga tushib postman yoki reactdan yuborilgan imgni serverga yuklab req.file qismida taqtim etadi u imgni malumotlarini olamiz, va windows un mantiq 
+        const result = await memberService.updateMember(req.member, input); // yuklangan rasmni bu methodga yo'naltiramz
+                                                        //qaysi member update qilmoqchigi, qanday malumotlarni update qilshligi
+        res.status(HttpCode.OK).json(result); // databaseda yangilangan malumotni browserga yuboramz
+    } catch (err) {
+        console.log("Error, updateMember:", err);
+        if(err instanceof Errors) res.status(err.code).json(err);
+        else res.status(Errors.standard.code).json(Errors.standard);
+    }
+}
 
-// tekshiramz
+// tekshiramz midlver
 memberController.verifyAuth = async (
     req: ExtendedRequest, 
     res: Response, 
-    next: NextFunction
+    next: NextFunction // midlver bo'gani uchun buni qo'ydik
     ) => {
     try{
         let member = null;
-        const token = req.cookies["accessToken"];    // krb kgan reqdan coikiesni oldik. yani biz hosil qilgan accessToken mavjudligini tekshiramz uni constga tengalmz
+        const token = req.cookies["accessToken"];   // krb kgan reqdan coikiesni oldik. yani biz hosil qilgan accessToken mavjudligini tekshiramz uni constga tengalmz
         if(token) req.member = await authService.checkAuth(token)  // tokenni servise modilga yubordik. yani agar token hosil bo'lgan bo'lsa
 
         if(!req.member)      // agar memberni qiymati o'zgarmagan bo'lsa hatolikni hosl qiladi
@@ -103,7 +118,7 @@ memberController.verifyAuth = async (
     }
 }
 
-// reques qilayotgan uset login bo'lgan bo'lsa datalarni olib beradi, agar login bo'lmasaham keyinga o'tkazadi
+// midlver, reques qilayotgan uset login bo'lgan bo'lsa datalarni olib beradi, agar login bo'lmasaham keyinga o'tkazadi
 memberController.retrieveAuth = async (
     req: ExtendedRequest, 
     res: Response, 
@@ -113,7 +128,7 @@ memberController.retrieveAuth = async (
         if(token) req.member = await authService.checkAuth(token)  // tokenni servise modilga yubordik. yani agar token hosil bo'lgan bo'lsa
         next(); // hatolik bo'lsa ham keyingi bosqichga o'tkazsin
     } catch(err) {
-        console.log("Error, verifyAuth:", err);
+        console.log("Error, retrieveAuth:", err);
         next();
     }
 }
