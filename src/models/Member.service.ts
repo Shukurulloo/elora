@@ -9,10 +9,22 @@ class MemberService {
     private readonly memberModel;
 
     constructor() {
-    this.memberModel = MemberModel;
+        this.memberModel = MemberModel;
     }
 
 /** SPA = Single Page Application */
+    // defination
+    public async getRestaurant(): Promise<Member> {
+        const result = await this.memberModel
+            .findOne({ memberType: MemberType.RESTAURANT })  // databsedan chaqirib beradi
+            .lean()  // shu orqali dataset qo'shish mumkin
+            .exec();
+
+        result.target = "Test";  // lean() orqali dokumnetni playn objectga aylatirdi
+        if(!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+
+        return result;
+    }
 
     public async signup(input: MemberInput): Promise<Member> {             //<void> hechnimani qaytarmaslik(return) uchn
         const salt = await bcrypt.genSalt();
@@ -53,7 +65,7 @@ class MemberService {
     }
 
     public async getMemberDetail(member: Member): Promise<Member> {
-        const memberId = shapeIntoMongooseObjectId(member._id); // stringda mongodb objectId ga o'giramz
+        const memberId = shapeIntoMongooseObjectId(member._id); // stringni mongodb objectId ga o'giramz
         const result = await this.memberModel // memberschema modulni chaqirib static methotiga shart kiritamz
             .findOne({_id: memberId, memberStatus: MemberStatus.ACTIVE})// idsi memberidga teng bo'lib Active holatda bo'lishi kerk
             .exec();

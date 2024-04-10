@@ -9,7 +9,21 @@ import { AUTH_TIMER } from "../libs/config";
 const memberService = new MemberService()
 const authService = new AuthService()
 
-const memberController: T = {};
+const memberController: T = {};     // bu object
+
+memberController.getRestaurant = async ( req : Request, res: Response ) => {
+    try {
+        console.log("getRestaurant");
+        const result = await memberService.getRestaurant();  // call
+
+        res.status(HttpCode.OK).json(result);
+    }   catch (err) {
+        console.log("Error, getRestaurant:", err);
+        if(err instanceof Errors) res.status(err.code).json(err); // bu errorga tegishli bolmasa pastagi ishlaydi
+        else res.status(Errors.standard.code).json(Errors.standard);  // general errors
+    }
+ }
+
 memberController.signup = async (req: Request, res: Response) => {
     try {
         console.log("signup");
