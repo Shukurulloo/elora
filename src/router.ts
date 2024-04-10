@@ -22,7 +22,7 @@ router.post(
     uploader("members").single("memberImage"), // members folderni ichiga rasmni yuklanadi va bitta rasm bo'lsin nomi memberImage bo'lsin schemada aytilgandek
     memberController.updateMember // keyin buyerga yo' oladi
     );
-    
+router.get("/member/top-users", memberController.getTopUsers)
 
 /** Product **/
 

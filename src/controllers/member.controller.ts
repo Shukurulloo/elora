@@ -96,6 +96,19 @@ memberController.updateMember = async (req: ExtendedRequest, res: Response) => {
     }
 }
 
+memberController.getTopUsers = async ( req: Request, res: Response ) => {
+    try {
+        console.log("getTopUsers");                 // mantiq yetib keganini check qilamz
+        const result = await memberService.getTopUsers();   // memberservice objectni getTopuser methodini chaqiramz bu call qismi
+
+        res.status(HttpCode.OK).json(result);
+    } catch (err) {
+        console.log("Error, getTopUsers:", err);
+        if(err instanceof Errors) res.status(err.code).json(err);
+        else res.status(Errors.standard.code).json(Errors.standard);
+    }
+}
+
 // tekshiramz midlver
 memberController.verifyAuth = async (
     req: ExtendedRequest, 

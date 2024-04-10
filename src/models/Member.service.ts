@@ -75,6 +75,19 @@ class MemberService {
         return result;
     }
 
+    public async getTopUsers(): Promise<Member[]> {  // member of arrayni yuboradi
+        const result = this.memberModel.find({ // find bu static method uning natijasi query bo'ladi
+            memberStatus: MemberStatus.ACTIVE, 
+            memberPoints: { $gte: 1 },              // 1 va undan yuqori pointi bor usrlarni chiqarib beradi
+            })         // "desc" => -1  yoki "asc" => +1
+            .sort({ memberPoints: -1 })             // pointi yuqori bo'lgan userni birinchiga chiqaradi(yuqoridan pastga)
+            .limit(4)                           // faqat 4 tagacha userni olib beradi figmada shunday
+            .exec();                              
+        if(!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+        
+        return result;
+    }
+
 
 /** SRR */
 
