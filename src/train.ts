@@ -406,15 +406,47 @@ MASALAN: chunkArray([1,2,3,4,5,6,7,8,9,10], 3) return [[1,2,3], [4,5,6], [7,8,9]
  */
 
 
-function chunkArray(arr: number[], chunkSize: number): number[][] {
-   const chunkedArray: number[][] = [];
+// function chunkArray(arr: number[], chunkSize: number): number[][] {
+//    const chunkedArray: number[][] = [];
 
-   for(let i = 0; i < arr.length; i += chunkSize) {
-      const chunk = arr.slice(i, i + chunkSize);
-      chunkedArray.push(chunk);
+//    for(let i = 0; i < arr.length; i += chunkSize) {
+//       const chunk = arr.slice(i, i + chunkSize);
+//       chunkedArray.push(chunk);
+//    }
+
+//    return chunkedArray
+// }
+
+// console.log("test:", chunkArray([1,2,3,4,5,6,7,8,9,10,11,12], 3));
+
+
+
+
+/** X-TASK:
+
+Shunday function yozing, uni object va string parapetrlari bolsin. 
+Function string parametri object ichida necha marotaba takrorlanganligini qaytarsin (nested object bolsa ham sanasin)
+ MASALAN: countOccurrences({model: 'Bugatti', steer: {model: 'HANKOOK', size: 30}}, 'model') return 2
+ */
+
+function countOccurrences(obj: Record<string, any>, str: string): number {
+   let count = 0;
+
+   for (const key in obj) {
+      if (key === str) {
+         count++;
+      }
+
+      if (typeof obj[key] === "object") {
+         count += countOccurrences(obj[key], str);
+      }
+
    }
+   
+   return count;
+} 
 
-   return chunkedArray
-}
+const obj = {model: 'Bugatti', steer: {model: 'HANKOOK', size: 30}}
+const str = "model";
 
-console.log("test:", chunkArray([1,2,3,4,5,6,7,8,9,10,11,12], 3));
+console.log(countOccurrences(obj, str));

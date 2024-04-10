@@ -17,7 +17,7 @@ class MemberService {
     public async getRestaurant(): Promise<Member> {
         const result = await this.memberModel
             .findOne({ memberType: MemberType.RESTAURANT })  // databsedan chaqirib beradi
-            .lean()  // shu orqali dataset qo'shish mumkin
+            .lean()  // queri comman,  shu orqali dataset qo'shish mumkin
             .exec();
 
         result.target = "Test";  // lean() orqali dokumnetni playn objectga aylatirdi
