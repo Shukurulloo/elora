@@ -28,6 +28,12 @@ router.get("/member/top-users", memberController.getTopUsers)
 
 /** Product **/
 router.get("/product/all/", productController.getProducts); // all/ dan keyin harqanday data parms deb belgilaymiz
+router.get(
+    "/product/:id", 
+    memberController.retrieveAuth, 
+    productController.getProduct
+);
+
 
 /** Order **/
 export default router;
