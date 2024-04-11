@@ -1,7 +1,9 @@
+import { T } from "../libs/types/common";
 import { shapeIntoMongooseObjectId } from "../libs/config";
 import Errors, { HttpCode, Message } from "../libs/Errors";
-import { Product, ProductInput } from "../libs/types/product";
+import { Product, ProductInput, ProductInquiry } from "../libs/types/product";
 import ProductModel from "../schema/Product.model";
+import { ProductStatus } from "../libs/enums/product.enum";
 
 class ProductService {
     private readonly productModel; //property ni hosil qildik
@@ -11,6 +13,33 @@ class ProductService {
     }
 
     /** SPA = Single Page Application */
+
+    public async getProducts(inquiry: ProductInquiry): Promise<Product[]> {
+        const match: T = { productStatus: ProductStatus.PROCESS };  // processda bo'lgan productlarni matchga tenglaymiz
+
+        if(inquiry.productCollection)  // agar postmandan yuborilgan bo'lsa yani mavjud bo'lsa 
+            match.productCollection = inquiry.productCollection; // productCollectionni tenglab beradi
+        if(inquiry.search) {           // agar search bo'lsa product name orqali topsin
+            match.productName = { $regex: new RegExp(inquiry.search, "i") };
+        }
+
+        const sort: T =  // pastdagi shartlar bilan sortlab beradi
+            inquiry.order === "productPrice" // agar order productPricega teng bo'lsa
+                ? { [inquiry.order]: 1 }          // narxi eng arzonidan boshlab yuqoriga. [inquiry.order]bu key array emas
+                : { [inquiry.order]: -1 };   // aks holda eng oxirgi qo'shilgandan pastga tushadi
+
+        const result = await this.productModel        // schema modul orqali aggregationdan foydalanamz
+            .aggregate([                            // aggregateni ichida array ko'rinishida bo'ladi arrayni ichida pipelinelar bo'ladi
+                { $match: match },                  // processda bo'lgan productlarni olib beradi
+                { $sort: sort },                    // sortlaymiz
+                { $skip: (inquiry.page * 1 - 1) * inquiry.limit }, //biz postmanda 3ni belgilasak 3ta(X 1,2,3) scip qiladi , skip: boshlang'ich nechta dokumentga o'tkazib yuborshi , bu va pastdagi 2si pagination qiladi.
+                { $limit: inquiry.limit * 1 },     // ( 3 => 4, 5, 6, ta dokumnetni ko'rsatadi) bizga aynan nechta malumot kerak  
+            ])
+            .exec();
+        if(!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+
+        return result;
+    }
 
     /** SRR = Server Site Rendering */
 

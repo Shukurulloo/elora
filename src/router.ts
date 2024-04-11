@@ -2,11 +2,12 @@ import express from "express";
 const router = express.Router();
 import memberController from "./controllers/member.controller";
 import uploader from "./libs/utils/uploader"
-
+import productController from "./controllers/product.controller";
+// routerda  single page aplication uchun hizmat qiladigon rest Api backend serverni quramz
 /** Member **/
 router.get("/member/restaurant", memberController.getRestaurant);
-router.post("/member/login", memberController.login);                    //rest. get() Api pagega kirish malumot olish uchun // post() Api malumotni o'zgartirish uchun    
-router.post("/member/signup", memberController.signup);
+router.post("/member/login", memberController.login);                    //rest. get() Api pagega kirish malumot olish uchun headres orqali 
+router.post("/member/signup", memberController.signup);                    // post() Api malumotni o'zgartirish uchun  bodu orqali
 router.post(
     "/member/logout",             // shu yerga post qilinsa
     memberController.verifyAuth, // bu middlwere orqali auth bo'lgani tekshiriladi va keyingi jarayonga o'tib
@@ -26,6 +27,7 @@ router.post(
 router.get("/member/top-users", memberController.getTopUsers)
 
 /** Product **/
+router.get("/product/all/", productController.getProducts); // all/ dan keyin harqanday data parms deb belgilaymiz
 
 /** Order **/
 export default router;

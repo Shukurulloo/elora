@@ -49,7 +49,7 @@ export interface MemberUpdateInput {
     memberImage?: string;
 }
 
-export interface ExtendedRequest extends Request {
+export interface ExtendedRequest extends Request {// typescriptga tanishtiryapmiz
     member: Member,
     file: Express.Multer.File; // bitta img(file) bo'sa
     files: Express.Multer.File[] // bir nechta img(file) bo'lsa
