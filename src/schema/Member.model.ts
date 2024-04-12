@@ -7,13 +7,13 @@ const memberSchema = new Schema({
 memberType: {
     type: String,
     enum: MemberType,
-    default: MemberType.USER
+    default: MemberType.USER,
 },
 
 memberStatus: {
     type: String,
     enum: MemberStatus,
-    default:MemberStatus.ACTIVE
+    default: MemberStatus.ACTIVE,
 },
 
 memberNick: {
@@ -31,7 +31,7 @@ memberPhone: {
 memberPassword: {
     type: String,
     select: false,
-    required: true
+    required: true,
 },
 
 memberAddress: {
@@ -50,7 +50,7 @@ memberPoints: {
     type: Number,
     default: 0,
 }, 
-}, {timestamps: true}       // updatedAt, createdAt
+}, {timestamps: true}       // updatedAt, createdAt  va shuyerda collectionni auto members qib ochib beradi hohlasak nomini fixed qilib kiritishmizham mumkin
 );
 
 export default mongoose.model("Member", memberSchema);

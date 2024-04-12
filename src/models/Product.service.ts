@@ -22,18 +22,18 @@ class ProductService {
             match.productCollection = inquiry.productCollection; //inquirydan kelgan productCollectionni tenglab beradi
         if(inquiry.search) {           // agar search bo'lsa product name orqali topsin
             match.productName = { $regex: new RegExp(inquiry.search, "i") }; // product nameni ichidan izlaydigon mantiq
-        }                                          // inquirydan kelayotgan searchni flagini i qilib harfni katta kichik farqsz qidirishini belgilaymiz
+        }                                             // inquirydan kelayotgan searchni flagini i qilib harfni katta kichik va harflar ketma-ketligi o'xshash bo'lsa ham farqsz qidirishini belgilaymiz
 
-        const sort: T =  // pastdagi shartlar bilan sortlab beradi
-            inquiry.order === "productPrice" // agar order productPricega teng bo'lsa
-                ? { [inquiry.order]: 1 }          // narxi eng arzonidan boshlab yuqoriga. [inquiry.order]bu key array emas
-                : { [inquiry.order]: -1 };   // aks holda (createdAt)bo'lsa eng oxirgi qo'shilgandan pastga tushadi
+        const sort: T =                                                                                             // pastdagi shartlar bilan sortlab beradi
+            inquiry.order === "productPrice"        // agar order productPricega teng bo'lsa
+                ? { [inquiry.order]: 1 }            // narxi eng arzonidan boshlab yuqoriga. [inquiry.order]bu key array emas
+                : { [inquiry.order]: -1 };          // aks holda (createdAt)bo'lsa eng oxirgi qo'shilgandan pastga tushadi
 
         const result = await this.productModel        // schema modul orqali 1ta argumentli aggregationdan foydalanamz
             .aggregate([                            // aggregateni ichida array ko'rinishida bo'ladi arrayni ichida pipelinelar bo'ladi
                 { $match: match },                  // processda bo'lgan productlarni olib beradi
                 { $sort: sort },                    // sortlaymiz
-                { $skip: (inquiry.page * 1 - 1) * inquiry.limit }, //biz postmanda 3ni belgilasak 3ta(X 1,2,3) scip qiladi , skip: boshlang'ich nechta dokumentga o'tkazib yuborshi , bu va pastdagi 2si pagination qiladi.
+                { $skip: (inquiry.page * 1 - 1) * inquiry.limit }, //biz postmanda 3ni belgilasak 3ta(X 1,2,3) skip qiladi , skip: boshlang'ich nechta dokumentga o'tkazib yuborshi , bu va pastdagi 2si pagination qiladi.
                 { $limit: inquiry.limit * 1 },     // ( 3 => 4, 5, 6, ta dokumnetni ko'rsatadi) bizga aynan nechta malumot kerak  
             ])
             .exec();

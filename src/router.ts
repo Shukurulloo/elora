@@ -15,7 +15,7 @@ router.post(
     );
 router.get(
     "/member/detail", 
-    memberController.verifyAuth, 
+    memberController.verifyAuth,
     memberController.getMemberDetail
     );
 router.post(
@@ -30,7 +30,7 @@ router.get("/member/top-users", memberController.getTopUsers)
 router.get("/product/all/", productController.getProducts); // all/ dan keyin harqanday data parms deb belgilaymiz
 router.get(
     "/product/:id", 
-    memberController.retrieveAuth, 
+    memberController.retrieveAuth, // o'tkazib yuboradi yani auth bo'lgan user bo'lsa uni datasini requestga biriktirb berish degani agar login bo'lmagan user bo'lsaham o'tkazib yuboradi
     productController.getProduct
 );
 
