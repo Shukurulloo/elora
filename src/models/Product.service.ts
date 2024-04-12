@@ -5,12 +5,17 @@ import { Product, ProductInput, ProductInquiry } from "../libs/types/product";
 import ProductModel from "../schema/Product.model";
 import { ProductStatus } from "../libs/enums/product.enum";
 import { ObjectId } from "mongoose";
+import ViewService from "./View.service";
+import { ViewInput } from "../libs/types/view";
+import { ViewGroup } from "../libs/enums/view.enum";
 
 class ProductService {
     private readonly productModel; //property ni hosil qildik
+    public viewService;
 
     constructor() {
-    this.productModel = ProductModel;
+        this.productModel = ProductModel;
+        this.viewService = new ViewService()    // inctance
     }
 
     /** SPA = Single Page Application */
@@ -56,7 +61,31 @@ class ProductService {
         .exec();
         if(!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
 
-        // TODO: If authenticated users => first => view log creation
+     
+        if(memberId) {
+            // Check Existence (ilgari ko'rganmi?)
+            const input: ViewInput = {
+                memberId: memberId,
+                viewRefId: productId,
+                viewGroup: ViewGroup.PRODUCT,
+            };
+            const existView = await this.viewService.checkViewExistence(input);
+
+            console.log("exist:", !!existView);
+            if(!existView) {
+              // Insert View(ko'rmagan bo'lsa)
+                await this.viewService.insertMemberView(input);
+
+             // Increase Counts (+1 taga oshirish) member or article
+                result = await this.productModel
+                    .findByIdAndUpdate(
+                        productId, 
+                        { $inc: {productViews: +1 } },
+                        { new: true }
+                    )
+                    .exec();
+            }
+        }
 
         return result;
     }
