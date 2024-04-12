@@ -429,24 +429,45 @@ Function string parametri object ichida necha marotaba takrorlanganligini qaytar
  MASALAN: countOccurrences({model: 'Bugatti', steer: {model: 'HANKOOK', size: 30}}, 'model') return 2
  */
 
-function countOccurrences(obj: Record<string, any>, str: string): number {
-   let count = 0;
+// function countOccurrences(obj: Record<string, any>, str: string): number {
+//    let count = 0;
 
-   for (const key in obj) {
-      if (key === str) {
-         count++;
-      }
+//    for (const key in obj) {
+//       if (key === str) {
+//          count++;
+//       }
 
-      if (typeof obj[key] === "object") {
-         count += countOccurrences(obj[key], str);
-      }
+//       if (typeof obj[key] === "object") {
+//          count += countOccurrences(obj[key], str);
+//       }
 
-   }
+//    }
    
-   return count;
-} 
+//    return count;
+// } 
 
-const obj = {model: 'Bugatti', steer: {model: 'HANKOOK', size: 30}}
-const str = "model";
+// const obj = {model: 'Bugatti', steer: {model: 'HANKOOK', size: 30}}
+// const str = "model";
 
-console.log(countOccurrences(obj, str));
+// console.log(countOccurrences(obj, str));
+
+
+/** Y-TASK:
+
+ Shunday function yozing, uni 2 ta array parapetri bolsin. 
+ Function ikkala arrayda ham ishtirok etgan qiymatlarni bir arrayda qaytarsin
+ MASALAN: findIntersection([1,2,3], [3,2,0]) return [2,3]
+ */
+
+function findIntersection(arr1: number[], arr2: number[]) {
+   const intersection: number[] = [];
+ 
+   arr1.forEach((value) => {
+     if (arr2.includes(value) && !intersection.includes(value)) {
+       intersection.push(value);
+     }
+   });
+   return intersection;
+ }
+ const result = findIntersection([1, 2, 3], [3, 2, 0]);
+ console.log("result:", result);
