@@ -152,7 +152,7 @@ memberController.retrieveAuth = async (
     next: NextFunction) => {
     try{
         const token = req.cookies["accessToken"];    // krb kgan reqdan coikiesni oldik. yani biz hosil qilgan accessToken mavjudligini tekshiramz uni constga tengalmz
-        if(token) req.member = await authService.checkAuth(token)  // tokenni servise modilga yubordik. yani agar token hosil bo'lgan bo'lsa
+        if(token) req.member = await authService.checkAuth(token)  // reqni ichiga memberni valuesini biriktir .tokenni servise modilga yubordik. yani agar token hosil bo'lgan bo'lsa
         next(); // hatolik bo'lsa ham keyingi bosqichga o'tkazsin
     } catch(err) {
         console.log("Error, retrieveAuth:", err);

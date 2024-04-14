@@ -29,13 +29,13 @@ class ProductService {
             match.productName = { $regex: new RegExp(inquiry.search, "i") }; // product nameni ichidan izlaydigon mantiq
         }                                             // inquirydan kelayotgan searchni flagini i qilib harfni katta kichik va harflar ketma-ketligi o'xshash bo'lsa ham farqsz qidirishini belgilaymiz
 
-        const sort: T =                                                                                             // pastdagi shartlar bilan sortlab beradi
+        const sort: T =                     // pastdagi shartlar bilan sortlab beradi
             inquiry.order === "productPrice"        // agar order productPricega teng bo'lsa
                 ? { [inquiry.order]: 1 }            // narxi eng arzonidan boshlab yuqoriga. [inquiry.order]bu key array emas
                 : { [inquiry.order]: -1 };          // aks holda (createdAt)bo'lsa eng oxirgi qo'shilgandan pastga tushadi
 
         const result = await this.productModel        // schema modul orqali 1ta argumentli aggregationdan foydalanamz
-            .aggregate([                            // aggregateni ichida array ko'rinishida bo'ladi arrayni ichida pipelinelar bo'ladi
+            .aggregate([                            // aggregateni (static) ichida array ko'rinishida bo'ladi arrayni ichida pipelinelar bo'ladi
                 { $match: match },                  // processda bo'lgan productlarni olib beradi
                 { $sort: sort },                    // sortlaymiz
                 { $skip: (inquiry.page * 1 - 1) * inquiry.limit }, //biz postmanda 3ni belgilasak 3ta(X 1,2,3) skip qiladi , skip: boshlang'ich nechta dokumentga o'tkazib yuborshi , bu va pastdagi 2si pagination qiladi.
@@ -47,47 +47,49 @@ class ProductService {
         return result;
     }
 
+    // 2xil result qaytadi  1-login bo'magan va productni oldin ko'rgan bosa result1
+    // 2-login bo'lib productni oldin ko'rmagan bo'lsa +1 view qo'shib result 2
     public async getProduct(
-        memberId: ObjectId | null, 
-        id: string 
+        memberId: ObjectId | null,  // 1-param mongodbini object id interfacesi yoki null yani login bo'lmagan user bo'lsa null bo'ladi
+        id: string                  // 2-param biz ko'rmoqchi bo'lgan prductni id si biz id deb belgilaganmiz
        ): Promise<Product> {
-        const productId = shapeIntoMongooseObjectId(id);
+        const productId = shapeIntoMongooseObjectId(id);  // stringni  ObjectId ga o'giramz
 
-        let result = await this.productModel
-        .findOne({
-            _id: productId, 
-            productStatus: ProductStatus.PROCESS,
+        let result = await this.productModel                // 1-result, schema moduldan foydalanib
+        .findOne({                     //findone static methotida
+            _id: productId,            // productIdga teng productni topib ber
+            productStatus: ProductStatus.PROCESS,   // holati faqat process bo'lgani ko'rinsin
         })
-        .exec();
+        .exec();       // customized eror
         if(!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
 
      
-        if(memberId) {
-            // Check Existence (ilgari ko'rganmi?)
-            const input: ViewInput = {
-                memberId: memberId,
+        if(memberId) { // login bo'lib ilgari ko'rgan bo'lsa  !existView bu ishlamaydi yuqoridagi result qaytadi
+            // call: Check Existence 
+            const input: ViewInput = {     // interfacega tenlab
+                memberId: memberId,    // har birini  interfacega tenlaymiz
                 viewRefId: productId,
-                viewGroup: ViewGroup.PRODUCT,
+                viewGroup: ViewGroup.PRODUCT, //ViewGroupni ichidan productni qo'yishini talab qilamz
             };
-            const existView = await this.viewService.checkViewExistence(input);
+            const existView = await this.viewService.checkViewExistence(input); //productni oldin ko'rganmi tekshirish
 
             console.log("exist:", !!existView);
-            if(!existView) {
-              // Insert View(ko'rmagan bo'lsa)
-                await this.viewService.insertMemberView(input);
+            if(!existView) {    // agar login bo'gan user oldin ko'rmagan bo'lsa pastdagi result qaytadi
+              // Insert View
+                await this.viewService.insertMemberView(input); // inputni pass qilib
 
              // Increase Counts (+1 taga oshirish) member or article
-                result = await this.productModel
-                    .findByIdAndUpdate(
+                result = await this.productModel      // schema 2-result +1 view
+                    .findByIdAndUpdate( // 3ta argumnet
                         productId, 
-                        { $inc: {productViews: +1 } },
-                        { new: true }
+                        { $inc: {productViews: +1 } }, // $inc incrinetion sintaksidan foydalanib 1+ oshir mantigi'ini yozamz
+                        { new: true }         // yangi malumotni qaytarsin
                     )
                     .exec();
             }
         }
 
-        return result;
+        return result;   // login bo'magan bo'lsa oddiy result login bo'lgan bo'lsa mantiqli resul
     }
 
     /** SRR = Server Site Rendering */

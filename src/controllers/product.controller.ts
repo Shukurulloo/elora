@@ -14,10 +14,10 @@ const productController: T = {}; // object
 
 productController.getProducts = async (req: Request, res: Response) => {
     try {
-        console.log("getProducts");
+        console.log("getProducts");  // distraction // string typeli
         const {page, limit, order, productCollection, search} = req.query;  // postmanda kiritgan query datalarni qabul qildik
         const inquiry: ProductInquiry = {   // interfaceda belgilangan har biri kiritilishi kerak aks holda type error chiqadi
-            order: String(order),       // stringa aylantirib beradi
+            order: String(order),       // grup typing deyiladi typescript typesi emas / stringa aylantirib beradi
             page: Number(page),
             limit: Number(limit),
         };
@@ -39,11 +39,11 @@ productController.getProducts = async (req: Request, res: Response) => {
 productController.getProduct = async (req: ExtendedRequest, res: Response) => {
     try {
         console.log("getProduct");
-        const { id } = req.params;
-        // console.log("req.member:", req.member);
-        const memberId = req.member?._id ?? null,
-            result = await productService.getProduct(memberId, id);
-
+        const { id } = req.params;       // krib keloyatgan reqni paramsni ichidan olamz /distraction-ichidan ajratib olish
+        // console.log("req.member:", req.member);/ retri authdan member kelsa
+        const memberId = req.member?._id ?? null,     // reqni ichida qiymat mavjud bo'lsa uni ichidan id ni olib ber // murojatchi kimligi
+            result = await productService.getProduct(memberId, id); // 2ta argument pas qilindi
+                                                // 1-arg memberId, 2-arg product id    
         res.status(HttpCode.OK).json(result);
     }   catch (err) {
         console.log("Error, getProduct:", err);
@@ -51,6 +51,8 @@ productController.getProduct = async (req: ExtendedRequest, res: Response) => {
         else res.status(Errors.standard.code).json(Errors.standard);  // general errors
     }
 }
+
+
 
 /** SRR = Server Site Rendering  adminka */
 

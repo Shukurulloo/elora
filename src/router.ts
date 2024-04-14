@@ -29,8 +29,8 @@ router.get("/member/top-users", memberController.getTopUsers)
 /** Product **/
 router.get("/product/all/", productController.getProducts); // all/ dan keyin harqanday data parms deb belgilaymiz
 router.get(
-    "/product/:id", 
-    memberController.retrieveAuth, // o'tkazib yuboradi yani auth bo'lgan user bo'lsa uni datasini requestga biriktirb berish degani agar login bo'lmagan user bo'lsaham o'tkazib yuboradi
+    "/product/:id",                 // qaysi productni ko'rishimizni urlda params orqali serverga yuboramz
+    memberController.retrieveAuth, // +1 o'tkazib yuboradi yani auth bo'lgan user bo'lsa uni datasini requestga biriktirb berish degani agar login bo'lmagan user bo'lsaham o'tkazib yuboradi
     productController.getProduct
 );
 
