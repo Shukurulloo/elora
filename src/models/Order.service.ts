@@ -1,10 +1,11 @@
 import OrderItemModel from "../schema/OrderItem.model";
 import OrderModel from "../schema/Order.model";
 import { Member } from "../libs/types/member";
-import { Order, OrderItemInput } from "../libs/types/order";
+import { Order, OrderInquiry, OrderItemInput } from "../libs/types/order";
 import { shapeIntoMongooseObjectId } from "../libs/config";
 import Errors, { HttpCode, Message } from "../libs/Errors";
 import {ObjectId} from "mongoose";
+import { OrderStatus } from "../libs/enums/order.enum";
 
 // orderServiceModul 2 xil collection bilan birga ishlaydi
 class OrderService {
@@ -62,6 +63,46 @@ class OrderService {
         const orderItemsState = await Promise.all(promisedList); // databacega to'liq create qimaguncha javob bermedi
         console.log("orderItemsState:", orderItemsState);
 
+    }
+
+    public async getMyOrders(
+        member: Member, 
+        inquiry: OrderInquiry
+    ): Promise<Order[]> {
+        const memberId = shapeIntoMongooseObjectId(member._id);
+        const matches = {memberId: memberId, orderStatus: inquiry.orderStatus};
+
+        const result = await this.orderModel
+        .aggregate([  
+            {$match: matches},
+            {$sort: {updateAt: -1}}, // yuqoridan pastga yani oxrgi o'zgargani yuqorida ko'rinadi
+            {$skip: (inquiry.page -1) * inquiry.limit},
+            {$limit: inquiry.limit},
+            {
+                /** bu bir vaqtning o'zida aggrigationda topilgan mantiqni 
+                 * har bitta natijasini ichida itiration qilish imkonini beradi va 
+                 * har bitta itirate qilyatganda boshqa bir collectionga borib 
+                 * malumotlarni topib berish imkonini beradi*/
+                $lookup: {   
+                    from: "orderItems", // shu collectiondan qidir
+                    localField: "_id", // hozr aggrigateda turgan localfield _id qiymatini olib
+                    foreignField: "orderId", //ordersni ichidagi slesh id orderItemsni ichidagi orderId datasetiga teng bo'lganni topib ber
+                    as: "orderItems", // va malumotni saqlab ber orderItems nomi ostida
+                },
+            },
+            {
+                $lookup: {
+                    from: "products",
+                    localField: "orderItems.productId",
+                    foreignField: "_id",
+                    as: "productData"
+                }
+            }
+        ])
+        .exec();
+        if(!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+
+        return result;
     }
 }
 
