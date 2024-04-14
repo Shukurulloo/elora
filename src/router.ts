@@ -3,6 +3,7 @@ const router = express.Router();
 import memberController from "./controllers/member.controller";
 import uploader from "./libs/utils/uploader"
 import productController from "./controllers/product.controller";
+import orderController from "./controllers/order.controller";
 // routerda  single page aplication uchun hizmat qiladigon rest Api backend serverni quramz
 /** Member **/
 router.get("/member/restaurant", memberController.getRestaurant);
@@ -34,6 +35,11 @@ router.get(
     productController.getProduct
 );
 
-
 /** Order **/
+router.post(  // rest API mehtoti post
+    "/order/create", 
+    memberController.verifyAuth, 
+    orderController.createOrder
+);
+
 export default router;
