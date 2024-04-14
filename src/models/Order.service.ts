@@ -1,20 +1,23 @@
 import OrderItemModel from "../schema/OrderItem.model";
 import OrderModel from "../schema/Order.model";
 import { Member } from "../libs/types/member";
-import { Order, OrderInquiry, OrderItemInput } from "../libs/types/order";
+import { Order, OrderInquiry, OrderItemInput, OrderUpdateInput } from "../libs/types/order";
 import { shapeIntoMongooseObjectId } from "../libs/config";
 import Errors, { HttpCode, Message } from "../libs/Errors";
 import {ObjectId} from "mongoose";
 import { OrderStatus } from "../libs/enums/order.enum";
+import MemberService from "./Member.service";
 
 // orderServiceModul 2 xil collection bilan birga ishlaydi
 class OrderService {
     private readonly orderModel;  // 2ta schema modul kerak
     private readonly orderItemModel;
+    private readonly memberServise; // memberServise object
 
     constructor() {
         this.orderModel = OrderModel;
         this.orderItemModel = OrderItemModel;
+        this.memberServise = new MemberService();
     }
 
     public async createOrder(
@@ -70,7 +73,7 @@ class OrderService {
         inquiry: OrderInquiry
     ): Promise<Order[]> {
         const memberId = shapeIntoMongooseObjectId(member._id);
-        const matches = {memberId: memberId, orderStatus: inquiry.orderStatus};
+        const matches = {memberId: memberId, orderStatus: inquiry.orderStatus}; // shu shart orqali reques qigan memberni id bilan kiritilgan va order statusi pause dan iborat  orderni topib berish
 
         const result = await this.orderModel
         .aggregate([  
@@ -102,6 +105,32 @@ class OrderService {
         .exec();
         if(!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
 
+        return result;
+    }
+
+    public async updateOrder(
+        member: Member, 
+        input: OrderUpdateInput
+    ): Promise<Order> {
+        const memberId = shapeIntoMongooseObjectId(member._id),
+            orderId = shapeIntoMongooseObjectId(input.orderId),
+            orderStatus = input.orderStatus;
+
+        const result = await this.orderModel.findOneAndUpdate({
+            memberId: memberId, 
+            _id: orderId,
+        }, 
+        {orderStatus: orderStatus}, // faqat birgina orderStatusni o'zgartir
+        {new: true}
+        )
+        .exec();
+
+        if(!result) throw new Errors(HttpCode.NOT_MODIFIED, Message.UPDATE_FAILED);
+
+        // orderStatus PAUSE => PROCESS +1 point
+        if(orderStatus === OrderStatus.PROCESS) { //agar puseddan processga o'tsa +1 point qo'sh
+            await this.memberServise.addUserPoint(member, 1);
+        }
         return result;
     }
 }
