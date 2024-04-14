@@ -459,15 +459,35 @@ Function string parametri object ichida necha marotaba takrorlanganligini qaytar
  MASALAN: findIntersection([1,2,3], [3,2,0]) return [2,3]
  */
 
-function findIntersection(arr1: number[], arr2: number[]) {
-   const intersection: number[] = [];
+// function findIntersection(arr1: number[], arr2: number[]) {
+//    const intersection: number[] = [];
  
-   arr1.forEach((value) => {
-     if (arr2.includes(value) && !intersection.includes(value)) {
-       intersection.push(value);
-     }
-   });
-   return intersection;
- }
- const result = findIntersection([1, 2, 3], [3, 2, 0]);
- console.log("result:", result);
+//    arr1.forEach((value) => {
+//      if (arr2.includes(value) && !intersection.includes(value)) {
+//        intersection.push(value);
+//      }
+//    });
+//    return intersection;
+//  }
+//  const result = findIntersection([1, 2, 3], [3, 2, 0]);
+//  console.log("result:", result);
+
+/** Z-TASK:
+
+Shunday function yozing, uni sonlardan tashkil topgan array qabul qilsin. 
+Function arraydagi juft sonlarni yigindisini qaytarsin
+MASALAN: sumEvens([1,2,3]) return 2
+ */
+
+function sumEvens(nums: number[]): number {
+   let sum = 0;
+
+   for(let num of nums) {
+      if(num % 2 === 0) {
+         sum += num;
+      }
+   }
+   return sum;
+}
+
+console.log(sumEvens([1,2,3]));
