@@ -104,14 +104,14 @@ class MemberService {
         const memberId = shapeIntoMongooseObjectId(member._id);
 
         return await this.memberModel
-        .findOneAndUpdate(
+        .findOneAndUpdate(   // 3ta argument
             {
-                _id: memberId, 
+                _id: memberId, // shuni top
                 memberType: MemberType.USER, 
                 memberStatus: MemberStatus.ACTIVE
                 }, 
-                { $inc: { memberPoints: point } }, 
-                { new: true }
+                { $inc: { memberPoints: point } }, //memberPointsni incrument qil point qo'sh
+                { new: true }  // oxrigi malumotni qaytar
             )
             .exec();
     }

@@ -38,7 +38,7 @@ router.get(
 /** Order **/
 router.post(  // rest API mehtoti post
     "/order/create", 
-    memberController.verifyAuth, 
+    memberController.verifyAuth, // faqat login bo'ganlar
     orderController.createOrder
 );
 
@@ -48,6 +48,10 @@ router.get(
     orderController.getMyOrders
 );
 
-router.post("/order/update", memberController.verifyAuth, orderController.updateOrder)
+router.post(
+    "/order/update", 
+    memberController.verifyAuth, 
+    orderController.updateOrder
+);
 
 export default router;

@@ -10,7 +10,7 @@ const orderService = new OrderService();
 
 const orderController: T = {};     // controllerlar  object orqali hosil qilinadi
 orderController.createOrder = async (req: ExtendedRequest, res: Response) => {
-    try{
+    try{                                    // ExtendedRequest ishlatish sababi midlver qo'yilgani
         console.log("createOrder");
         const result = await orderService.createOrder(req.member, req.body);
         
@@ -24,14 +24,14 @@ orderController.createOrder = async (req: ExtendedRequest, res: Response) => {
 
 orderController.getMyOrders = async (req: ExtendedRequest, res: Response) => {
     try{
-        console.log("getMyOrders");
-        const {page, limit, orderStatus} = req.query;
+        console.log("getMyOrders");//distraction(yoyib olish)
+        const {page, limit, orderStatus} = req.query; // reqni queri qismidan qabul qilib distractionga tenglaymz
         const inquiry: OrderInquiry = {
-            page: Number(page),
+            page: Number(page),   // stringni numberga o'tkazamz
             limit: Number(limit),
             orderStatus: orderStatus as OrderStatus,
         };
-        console.log("inquiry:", inquiry);
+        console.log("inquiry:", inquiry);  // kiri bkegan inquerini tekshiramz
         const result = await orderService.getMyOrders(req.member, inquiry);
 
         

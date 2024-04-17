@@ -4,7 +4,7 @@ import { Member } from "../libs/types/member";
 import { Order, OrderInquiry, OrderItemInput, OrderUpdateInput } from "../libs/types/order";
 import { shapeIntoMongooseObjectId } from "../libs/config";
 import Errors, { HttpCode, Message } from "../libs/Errors";
-import {ObjectId} from "mongoose";
+import { ObjectId } from "mongoose";
 import { OrderStatus } from "../libs/enums/order.enum";
 import MemberService from "./Member.service";
 
@@ -21,57 +21,58 @@ class OrderService {
     }
 
     public async createOrder(
-        member: Member, 
-        input: OrderItemInput[]
-    ): Promise <Order> { // kim orderni hosil qilishi, va input
+        member: Member,                // kim orderni hosl qilyotgani
+        input: OrderItemInput[]        // va input 3ta malumot kritiladi
+    ): Promise <Order> { 
         const memberId = shapeIntoMongooseObjectId(member._id);
         /** shart; 100$gacha  mahsulot zakaz qilinsa 5$ yetkazishTolovini elon qilamz 
          * agar 100$dan oshsa tekinga yetkazamz degan mantig'i*/ 
-        const amount = input.reduce((accumulator: number, item: OrderItemInput) => {
+        const amount = input.reduce((accumulator: number, item: OrderItemInput) => { // input bu array
             return accumulator + item.itemPrice * item.itemQuantity // umumiy narxni chiqarish mantig'i yani mahsulot miqdorioni narxiga ko'paytirdik
-        }, 0);
+        }, 0); // reduceda 2ta argument bo'ladi 1function 2 initial value
         const delivery = amount < 100 ? 5 : 0; // turnery: agar 100dan kichik bo'lsa 5 tenga va katta bo'lsa 0 tekn
 
-        try { // database validationi(tasdiq) da hatolik bo'lsa customized errorimzni  beramz
+        try {  //orederSchema modulni create methodi orqali oredrni hosl qilamz
             const newOrder: Order = await this.orderModel.create({// oxirida creatd bo'ganida order qaytish mantig'i
-                orderTotal: amount + delivery,   // jami
+                orderTotal: amount + delivery,   // ordet total qiymati teng bo'ladi yetkazish puli va product narxi
                 orderDelivery: delivery,
                 memberId: memberId,         //kim murojat qilishi
             }); 
 
             const orderId =  newOrder._id; // mongodb orqali qabul qilgan orderId
             console.log("orderId:",  orderId);
-            // shu orderni hosil qilishda foydalanilgan order itemlarniham hosl qilish mantig'i
+
+            // shu orderni hosil qilishda foydalanilgan order itemlarniham hosl qilish mantig'i// productni narxi o'zgarib turgani uchun saqlab olamz
             await this.recordOrderItem(orderId, input);
 
             return newOrder;   // oxirida hosl bo'lgan yangi orderni o'zini qaytaramz
-        }catch(err) {
+        }catch(err) { // database validationi(tasdiq) da hatolik bo'lsa customized errorimzni  beramz
             console.log("Error, model:createdOrder:", err);
             throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED)
         }
     }
 
     private async recordOrderItem(
-        orderId: ObjectId, 
-        input: OrderItemInput[]
-    ): Promise<void> {
+        orderId: ObjectId, //qaysi orderga tegishli ekani
+        input: OrderItemInput[] //OrderItemInputdan tashkil topgan array
+    ): Promise<void> { // void yani hech qanday return qiymati mavjud bo'lmasin
         // har bir orderga dahldor bo'gan  malumotlarni ketma ketlikda orderItemsga saqlash
         const promisedList = input.map( async (item: OrderItemInput) => {  // map+filter+async use, for+while+async don't use  
             item.orderId = orderId;
             item.productId = shapeIntoMongooseObjectId(item.productId); // secior qilish un str obj
-            await this.orderItemModel.create(item);
-            return "INSERTED";
+            await this.orderItemModel.create(item); //orderItem schema Modelni create static methotiga itemni pas qilamz
+            return "INSERTED"; // inputni map qilgan vaqti muofaqiyatli bo'lsa shu logni qaytarsin
         });
-
+        // promisedListni(array) ichidag har mantiqni bajarib beradigon promisni all methotidan foydalanamz unga pass qilamz
         const orderItemsState = await Promise.all(promisedList); // databacega to'liq create qimaguncha javob bermedi
         console.log("orderItemsState:", orderItemsState);
 
     }
 
     public async getMyOrders(
-        member: Member, 
+        member: Member,          // kimning orderlarini topish kerakligi
         inquiry: OrderInquiry
-    ): Promise<Order[]> {
+    ): Promise<Order[]> {        //orderdan iborat array
         const memberId = shapeIntoMongooseObjectId(member._id);
         const matches = {memberId: memberId, orderStatus: inquiry.orderStatus}; // shu shart orqali reques qigan memberni id bilan kiritilgan va order statusi pause dan iborat  orderni topib berish
 
@@ -80,7 +81,7 @@ class OrderService {
             {$match: matches},
             {$sort: {updateAt: -1}}, // yuqoridan pastga yani oxrgi o'zgargani yuqorida ko'rinadi
             {$skip: (inquiry.page -1) * inquiry.limit},
-            {$limit: inquiry.limit},
+            {$limit: inquiry.limit}, // [OrderData1], [OrderData2]
             {
                 /** bu bir vaqtning o'zida aggrigationda topilgan mantiqni 
                  * har bitta natijasini ichida itiration qilish imkonini beradi va 
@@ -93,12 +94,12 @@ class OrderService {
                     as: "orderItems", // va malumotni saqlab ber orderItems nomi ostida
                 },
             },
-            {
+            {   
                 $lookup: {
-                    from: "products",
-                    localField: "orderItems.productId",
+                    from: "products",// products colectiondan izla
+                    localField: "orderItems.productId",// orderItemsni ichidan productIdni ol
                     foreignField: "_id",
-                    as: "productData"
+                    as: "productData" // shu nom bilan saqla
                 }
             }
         ])
@@ -130,7 +131,7 @@ class OrderService {
         // orderStatus PAUSE => PROCESS +1 point
         if(orderStatus === OrderStatus.PROCESS) { //agar puseddan processga o'tsa +1 point qo'sh
             await this.memberServise.addUserPoint(member, 1);
-        }
+        }            // memberServise modulini addUserPoint methodini ichigiga member va 1ga oshir
         return result;
     }
 }

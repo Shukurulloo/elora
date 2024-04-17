@@ -32,7 +32,7 @@ export interface OrderItemInput {
     orderId?: ObjectId;   // bu bizni postmanimizdan kemedi o'zimz hosl qilamz
 }
 
-export interface OrderInquiry {
+export interface OrderInquiry {  // kirib kelayotgan malumotlar uchn
     page: number;
     limit: number;
     orderStatus: OrderStatus; // enum

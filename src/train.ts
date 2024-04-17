@@ -479,15 +479,30 @@ Function arraydagi juft sonlarni yigindisini qaytarsin
 MASALAN: sumEvens([1,2,3]) return 2
  */
 
-function sumEvens(nums: number[]): number {
-   let sum = 0;
+// function sumEvens(nums: number[]): number {
+//    let sum = 0;
 
-   for(let num of nums) {
-      if(num % 2 === 0) {
-         sum += num;
-      }
+//    for(let num of nums) {
+//       if(num % 2 === 0) {
+//          sum += num;
+//       }
+//    }
+//    return sum;
+// }
+
+// console.log(sumEvens([1,2,3]));
+
+/** ZA-TASK:
+
+Shunday function yozing, u array ichidagi objectlarni 
+“age” qiymati boyicha sortlab bersin. 
+MASALAN: sortByAge([{age:23}, {age:21}, 
+   {age:13}]) return [{age:13}, {age:21}, {age:23}]
+ */
+
+function sortByAge(arr: { age: any}[]) {
+   return arr.sort((a, b) => a.age - b.age);
    }
-   return sum;
-}
 
-console.log(sumEvens([1,2,3]));
+console.log(sortByAge([{age:2}, {age:21},{age:13}]));
+console.log("check2:", sortByAge([{age:2}, {age:[21]},{age:"13"}]));
