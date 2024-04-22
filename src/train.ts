@@ -514,8 +514,22 @@ Shunday function yozing, uni 2 ta number parametri bolsin
 MASALAN: randomBetween(30, 50) return 45
  */
 
-function randomBetween(min: number, max: number): number {
-   return Math.floor(Math.random() * (max - min +1)) + min;
+// function randomBetween(min: number, max: number): number {
+//    return Math.floor(Math.random() * (max - min +1)) + min;
+// }
+
+// console.log(randomBetween(30, 50));
+
+/** ZC-TASK:
+
+Shunday function yozing, uni number parametri bolsin 
+va function qabul parametrni selsiy miqdori sifatida qabul qilib 
+uni farenhitga ozgartirib bersin
+MASALAN: celsiusToFahrenheit(0) return 32*/
+
+function celsiusToFahrenheit(celsius: number) {
+   return (celsius * 9/5) +32
 }
 
-console.log(randomBetween(30, 50));
+console.log(celsiusToFahrenheit(100));
+//izoh Fahrenheit (F): Fahrenheit(celsius 32 dan 212 gacha)bo'lgan o'lchovdir
