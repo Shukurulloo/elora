@@ -527,9 +527,33 @@ va function qabul parametrni selsiy miqdori sifatida qabul qilib
 uni farenhitga ozgartirib bersin
 MASALAN: celsiusToFahrenheit(0) return 32*/
 
-function celsiusToFahrenheit(celsius: number) {
-   return (celsius * 9/5) +32
+// function celsiusToFahrenheit(celsius: number) {
+//    return (celsius * 9/5) +32
+// }
+
+// console.log(celsiusToFahrenheit(100));
+//izoh Fahrenheit (F): Fahrenheit(celsius 32 dan 212 gacha)bo'lgan o'lchovdir
+
+/** ZD-TASK:
+
+Shunday function yozing, uni number, array va number parametrlari bolsin 
+va berilgan 1-parametr numberga teng indexni array ichidan topib 
+3-parametrdagi raqam bilan almashtirib yangilangan arrayni qaytarsin
+MASALAN: changeNumberInArray(1, [1,3,7,2], 2) return [1,2,7,2]
+
+ */
+
+function changeNumberInArray(index: number, arr: number[], numberToReplaceWith: number): number[] {
+
+   if (index < 0 || index >= arr.length) {
+       throw new Error('Index mavjud emas');
+   }
+   const newArr = [...arr];
+   
+   newArr[index] = numberToReplaceWith;
+
+   return newArr;
 }
 
-console.log(celsiusToFahrenheit(100));
-//izoh Fahrenheit (F): Fahrenheit(celsius 32 dan 212 gacha)bo'lgan o'lchovdir
+
+console.log(changeNumberInArray(1, [1, 3, 7, 2], 2));
