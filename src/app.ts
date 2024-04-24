@@ -1,3 +1,4 @@
+import cors from "cors";
 import express from "express"; // wep server framebook
 import path from "path";
 import router from "./router";
@@ -22,6 +23,12 @@ app.use(express.static(path.join(__dirname, "public")));// klientga ochib bersh
 app.use("/uploads", express.static("./uploads")); // uploads folderi tashqariga ochildi
 app.use(express.urlencoded({extended: true}));//htmlda forum traditional reqni kirishga ruhsat beradi nested req
 app.use(express.json());// kirib kelayotgan res api ni body qismini serverga tashrifini amalga oshiradi
+app.use(
+  cors({                  // cors ihtiyoriy domendan kelayotgan requestlarni  servermga kirishiga rusat beradi
+    credentials: true, 
+    origin: true 
+  })
+);
 app.use(cookieParser()); // cookieParserni install qilb, inigratsiya qilamz
 app.use(morgan(MORGAN_FORMAT));
 
