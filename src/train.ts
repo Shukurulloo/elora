@@ -543,17 +543,37 @@ MASALAN: changeNumberInArray(1, [1,3,7,2], 2) return [1,2,7,2]
 
  */
 
-function changeNumberInArray(index: number, arr: number[], numberToReplaceWith: number): number[] {
+// function changeNumberInArray(index: number, arr: number[], numberToReplaceWith: number): number[] {
 
-   if (index < 0 || index >= arr.length) {
-       throw new Error('Index mavjud emas');
-   }
-   const newArr = [...arr];
+//    if (index < 0 || index >= arr.length) {
+//        throw new Error('Index mavjud emas');
+//    }
+//    const newArr = [...arr];
    
-   newArr[index] = numberToReplaceWith;
+//    newArr[index] = numberToReplaceWith;
 
-   return newArr;
+//    return newArr;
+// }
+
+
+// console.log(changeNumberInArray(1, [1, 3, 7, 2], 2));
+
+
+
+/** ZE-TASK:
+
+Shunday function yozing, uni  string parametri bolsin.
+String ichida takrorlangan harflarni olib tashlab qolganini qaytarsin
+MASALAN: removeDuplicate('stringg') return 'string'
+*/ 
+
+function removeDuplicate(inputString: string): string {
+   let resultString: string = ''; 
+   for (let i = 0; i < inputString.length; i++) { 
+       if (inputString.indexOf(inputString[i]) === i) {
+           resultString += inputString[i];
+       }
+   }
+   return resultString;
 }
-
-
-console.log(changeNumberInArray(1, [1, 3, 7, 2], 2));
+console.log(removeDuplicate('stringg')); 

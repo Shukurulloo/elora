@@ -23,9 +23,9 @@ app.use(express.static(path.join(__dirname, "public")));// klientga ochib bersh
 app.use("/uploads", express.static("./uploads")); // uploads folderi tashqariga ochildi
 app.use(express.urlencoded({extended: true}));//htmlda forum traditional reqni kirishga ruhsat beradi nested req
 app.use(express.json());// kirib kelayotgan res api ni body qismini serverga tashrifini amalga oshiradi
-app.use(
-  cors({                  // cors ihtiyoriy domendan kelayotgan requestlarni  servermga kirishiga rusat beradi
-    credentials: true, 
+app.use(    // middleware pattern asosida integratsya
+  cors({      // cors ihtiyoriy domendan kelayotgan requestlarni  servermga kirishiga rusat beradi
+    credentials: true, // ihtiyoriy domen kirishga ruhsat
     origin: true 
   })
 );

@@ -23,7 +23,7 @@ export enum ProductStatus { // databacedan o'chib ketmaydi statusi o'zgaradi
 export enum ProductCollection {
     DISH = "DISH",
     SALAD = "SALAD",
-    DESSERT = "DESERT",
+    DESSERT = "DESSERT",
     DRINK = "DRINK",
     OTHER = "OTHER",
 }
