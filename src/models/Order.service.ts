@@ -79,7 +79,7 @@ class OrderService {
         const result = await this.orderModel
         .aggregate([  
             {$match: matches},
-            {$sort: {updateAt: -1}}, // yuqoridan pastga yani oxrgi o'zgargani yuqorida ko'rinadi
+            {$sort: {updatedAt: -1}}, // yuqoridan pastga yani oxrgi o'zgargani yuqorida ko'rinadi
             {$skip: (inquiry.page -1) * inquiry.limit},
             {$limit: inquiry.limit}, // [OrderData1], [OrderData2]
             {
