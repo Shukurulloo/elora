@@ -41,4 +41,4 @@ export interface OrderInquiry {  // kirib kelayotgan malumotlar uchn
 export interface OrderUpdateInput {
     orderId: string;
     orderStatus: OrderStatus;
-}
+} 
