@@ -610,12 +610,35 @@ Shunday function yozing, u berilgan string parametrni snake casega otkazib qayta
 MASALAN: capitalizeWords('name should be a string') return 'name_should_be_a_string'
  */
 
-function toSnakeCase(sentence: string): string {
-   return sentence
-       .toLowerCase() 
-       .split(' ') 
-       .join('_');
+// function toSnakeCase(sentence: string): string {
+//    return sentence
+//        .toLowerCase() 
+//        .split(' ') 
+//        .join('_');
+// }
+
+// // Misol
+// console.log(toSnakeCase('name should be a string')); 
+
+
+
+/**  Shunday function yozing, u berilgan array parametrni ichidagi 
+ * eng katta raqamgacha tushib qolgan raqamlarni bir arrayda qaytarsin. 
+MASALAN: findDisappearedNumbers([1, 3, 4, 7]) return [2, 5, 6]
+*/
+
+function findDisappearedNumbers(nums: number[]): number[] {
+   const maxNumber = Math.max(...nums);
+   const disappearedNumbers: number[] = [];
+
+   for(let i = 1; i <= maxNumber; i++) {
+      if(!nums.includes(i)) {
+         disappearedNumbers.push(i);
+      }
+   } 
+
+   return disappearedNumbers;
 }
 
-// Misol
-console.log(toSnakeCase('name should be a string')); 
+console.log("check:", findDisappearedNumbers([1, 3, 4, 7, 9])); 
+
