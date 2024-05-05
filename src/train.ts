@@ -622,23 +622,40 @@ MASALAN: capitalizeWords('name should be a string') return 'name_should_be_a_str
 
 
 
-/**  Shunday function yozing, u berilgan array parametrni ichidagi 
+/**  ZH-TASK:
+Shunday function yozing, u berilgan array parametrni ichidagi 
  * eng katta raqamgacha tushib qolgan raqamlarni bir arrayda qaytarsin. 
 MASALAN: findDisappearedNumbers([1, 3, 4, 7]) return [2, 5, 6]
 */
 
-function findDisappearedNumbers(nums: number[]): number[] {
-   const maxNumber = Math.max(...nums);
-   const disappearedNumbers: number[] = [];
+// function findDisappearedNumbers(nums: number[]): number[] {
+//    const maxNumber = Math.max(...nums);
+//    const disappearedNumbers: number[] = [];
 
-   for(let i = 1; i <= maxNumber; i++) {
-      if(!nums.includes(i)) {
-         disappearedNumbers.push(i);
-      }
-   } 
+//    for(let i = 1; i <= maxNumber; i++) {
+//       if(!nums.includes(i)) {
+//          disappearedNumbers.push(i);
+//       }
+//    } 
 
-   return disappearedNumbers;
-}
+//    return disappearedNumbers;
+// }
 
-console.log("check:", findDisappearedNumbers([1, 3, 4, 7, 9])); 
+// console.log("check:", findDisappearedNumbers([1, 3, 4, 7, 9])); 
 
+
+
+
+/** ZI-TASK:
+
+Shunday function yozing, u function ishga tushgandan 3 soniyadan keyin
+ "Hello World" ni qaytarsin.
+MASALAN: delayHelloWorld("Hello World") return "Hello World"
+ */
+
+function delayHelloWorld() {
+   console.log("Hello World");
+ } 
+ setTimeout(delayHelloWorld, 5000);
+
+ 
