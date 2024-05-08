@@ -653,9 +653,29 @@ Shunday function yozing, u function ishga tushgandan 3 soniyadan keyin
 MASALAN: delayHelloWorld("Hello World") return "Hello World"
  */
 
-function delayHelloWorld() {
-   console.log("Hello World");
- } 
- setTimeout(delayHelloWorld, 5000);
+// function delayHelloWorld() {
+//    console.log("Hello World");
+//  } 
+//  setTimeout(delayHelloWorld, 5000);
 
  
+/** ZJ-TASK:
+
+Shunday function yozing, u berilgan arrayni ichidagi numberlarni 
+qiymatini hisoblab qaytarsin.
+MASALAN: reduceNestedArray([1, [1, 2, [4]]]) return 8
+ */
+
+function reduceNestedArray(arr: (number | any)[]): number {
+   return arr.reduce((acc: number, curr: number | any) => {
+      if(Array.isArray(curr)) {
+         return acc + reduceNestedArray(curr);
+      } else if (typeof curr === 'number') {
+         return acc + curr;
+      } else {
+         return acc;
+      }
+   }, 0);
+}
+
+console.log("check:", reduceNestedArray([1, [2, 2, [4]]]));
