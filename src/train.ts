@@ -711,8 +711,24 @@ MASALAN: stringToKebab(“I love Kebab”) return “i-love-kebab”
 
  */
 
-function stringToKebab(str: string): string {
-   return str.split(' ').map(word => word.toLowerCase()).join('-');
+// function stringToKebab(str: string): string {
+//    return str.split(' ').map(word => word.toLowerCase()).join('-');
+// }
+
+// console.log(stringToKebab("I love Kebab")); 
+
+
+
+/** ZM-TASK:
+
+Shunday function yozing, 
+u function parametrga berilgan raqamlarni orqasiga ogirib qaytarsin.
+MASALAN: reverseInteger(123456789) return 987654321
+ */
+
+function reverseInteger(num: number): number {
+   const reversed = parseInt(num.toString().split('').reverse().join(''));
+   return num < 0 ? -reversed : reversed;
 }
 
-console.log(stringToKebab("I love Kebab")); 
+console.log(reverseInteger(123456789)); 
