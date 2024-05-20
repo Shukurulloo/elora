@@ -742,16 +742,45 @@ Shunday function yozing, uni array va number parametri bolsin.
 Ikkinchi parametrda berilgan raqamli indexgacha arrayni orqasiga ogirib qaytarsin.
 MASALAN: rotateArray([1, 2, 3, 4, 5, 6], 3) return [5, 6, 1, 2, 3, 4] */
 
-function rotateArray(arr: any[], index: number): any[] {
-   if (index < 0 || index >= arr.length) {
-       return arr; 
+// function rotateArray(arr: any[], index: number): any[] {
+//    if (index < 0 || index >= arr.length) {
+//        return arr; 
+//    }
+//    const part1 = arr.slice(index + 1); 
+//    const part2 = arr.slice(0, index + 1); 
+//    return part1.concat(part2); 
+// }
+
+// console.log(rotateArray([1, 2, 3, 4, 5, 6], 3)); 
+
+
+
+
+ 
+ /* ZO-TASK:
+
+   Shunday function yozing, u parametrdagi string ichidagi qavslar miqdori balansda ekanligini aniqlasin. 
+   Ya'ni ochish("(") va yopish(")") qavslar soni bir xil bolishi kerak.
+   MASALAN: areParenthesesBalanced("string()ichida(qavslar)soni()balansda") return true */
+
+function areParenthesesBalanced(input: string): boolean {
+   let balance = 0;
+ 
+   for (let i = 0; i < input.length; i++) {
+     if (input[i] === "(") {
+       balance++;
+     } else if (input[i] === ")") {
+       balance--;
+     }
+
+     if (balance < 0) {
+       return false;
+     }
    }
-   const part1 = arr.slice(index + 1); 
-   const part2 = arr.slice(0, index + 1); 
-   return part1.concat(part2); 
-}
 
-console.log(rotateArray([1, 2, 3, 4, 5, 6], 3)); 
-
+   return balance === 0;
+ }
  
  
+ console.log(areParenthesesBalanced("string()ichida(qavslar)soni()balansda")); 
+ console.log(areParenthesesBalanced("qavslar(notog'ri)joylashgan)(")); 
