@@ -763,24 +763,53 @@ MASALAN: rotateArray([1, 2, 3, 4, 5, 6], 3) return [5, 6, 1, 2, 3, 4] */
    Ya'ni ochish("(") va yopish(")") qavslar soni bir xil bolishi kerak.
    MASALAN: areParenthesesBalanced("string()ichida(qavslar)soni()balansda") return true */
 
-function areParenthesesBalanced(input: string): boolean {
-   let balance = 0;
+// function areParenthesesBalanced(input: string): boolean {
+//    let balance = 0;
  
-   for (let i = 0; i < input.length; i++) {
-     if (input[i] === "(") {
-       balance++;
-     } else if (input[i] === ")") {
-       balance--;
-     }
+//    for (let i = 0; i < input.length; i++) {
+//      if (input[i] === "(") {
+//        balance++;
+//      } else if (input[i] === ")") {
+//        balance--;
+//      }
 
-     if (balance < 0) {
-       return false;
-     }
+//      if (balance < 0) {
+//        return false;
+//      }
+//    }
+
+//    return balance === 0;
+//  }
+ 
+ 
+//  console.log(areParenthesesBalanced("string()ichida(qavslar)soni()balansda")); 
+//  console.log(areParenthesesBalanced("qavslar(notog'ri)joylashgan)(")); 
+
+
+/** ZP-TASK:
+
+Shunday function yozing, 
+u parametridagi array ichida eng kop takrorlangan raqamni topib qaytarsin.
+MASALAN: majorityElement([1,2,3,4,5,4,3,4]) return 4
+ */
+
+function majorityElement(nums: number[]): number {
+   const countMap = new Map<number, number>();
+   let maxCount = 0;
+   let majorityElement = nums[0];
+
+   for (let num of nums) {
+       const count = (countMap.get(num) || 0) + 1;
+       countMap.set(num, count);
+
+       if (count > maxCount) {
+           maxCount = count;
+           majorityElement = num;
+       }
    }
 
-   return balance === 0;
- }
- 
- 
- console.log(areParenthesesBalanced("string()ichida(qavslar)soni()balansda")); 
- console.log(areParenthesesBalanced("qavslar(notog'ri)joylashgan)(")); 
+   return majorityElement;
+}
+
+
+console.log(majorityElement([1, 2, 3, 4, 5, 5, 5, 4, 3, 4])); 
