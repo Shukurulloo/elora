@@ -793,23 +793,56 @@ u parametridagi array ichida eng kop takrorlangan raqamni topib qaytarsin.
 MASALAN: majorityElement([1,2,3,4,5,4,3,4]) return 4
  */
 
-function majorityElement(nums: number[]): number {
-   const countMap = new Map<number, number>();
-   let maxCount = 0;
-   let majorityElement = nums[0];
+// function majorityElement(nums: number[]): number {
+//    const countMap = new Map<number, number>();
+//    let maxCount = 0;
+//    let majorityElement = nums[0];
+
+//    for (let num of nums) {
+//        const count = (countMap.get(num) || 0) + 1;
+//        countMap.set(num, count);
+
+//        if (count > maxCount) {
+//            maxCount = count;
+//            majorityElement = num;
+//        }
+//    }
+
+//    return majorityElement;
+// }
+
+
+// console.log(majorityElement([1, 2, 3, 4, 5, 5, 5, 4, 3, 4])); 
+
+
+
+/** ZQ-TASK:
+
+Shunday function yozing, 
+u parametridagi array ichida 2 marta qaytarilgan sonlarni alohida araryda qaytarsin.
+MASALAN: findDuplicates([1,2,3,4,5,4,3,4]) return [3, 4]
+  */
+
+function findDuplicates(nums: number[]): number[] {
+   const countMap: { [key: number]: number } = {};
+   const duplicates: number[] = [];
 
    for (let num of nums) {
-       const count = (countMap.get(num) || 0) + 1;
-       countMap.set(num, count);
-
-       if (count > maxCount) {
-           maxCount = count;
-           majorityElement = num;
+       if (countMap[num]) {
+           countMap[num]++;
+       } else {
+           countMap[num] = 1;
        }
    }
 
-   return majorityElement;
+   for (let key in countMap) {
+       if (countMap[key] === 2) {
+           duplicates.push(Number(key));
+       }
+   }
+
+   return duplicates;
 }
 
 
-console.log(majorityElement([1, 2, 3, 4, 5, 5, 5, 4, 3, 4])); 
+console.log(findDuplicates([1, 3, 4, 5, 4, 3, 2, 5, 1])); 
