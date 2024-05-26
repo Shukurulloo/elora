@@ -823,26 +823,51 @@ u parametridagi array ichida 2 marta qaytarilgan sonlarni alohida araryda qaytar
 MASALAN: findDuplicates([1,2,3,4,5,4,3,4]) return [3, 4]
   */
 
-function findDuplicates(nums: number[]): number[] {
-   const countMap: { [key: number]: number } = {};
-   const duplicates: number[] = [];
+// function findDuplicates(nums: number[]): number[] {
+//    const countMap: { [key: number]: number } = {};
+//    const duplicates: number[] = [];
 
-   for (let num of nums) {
-       if (countMap[num]) {
-           countMap[num]++;
-       } else {
-           countMap[num] = 1;
+//    for (let num of nums) {
+//        if (countMap[num]) {
+//            countMap[num]++;
+//        } else {
+//            countMap[num] = 1;
+//        }
+//    }
+
+//    for (let key in countMap) {
+//        if (countMap[key] === 2) {
+//            duplicates.push(Number(key));
+//        }
+//    }
+
+//    return duplicates;
+// }
+
+
+// console.log(findDuplicates([1, 3, 4, 5, 4, 3, 2, 5, 1])); 
+
+
+
+/** ZR-TASK:
+
+Shunday function yozing, u parametridagi string ichidagi raqam va 
+sonlarni sonini sanasin.
+MASALAN: countNumberAndLetters(“string152%\¥”) return {number:3, letter:6} */
+
+function countNumberAndLetters(input: string): { number: number, letter: number } {
+   let numberCount = 0;
+   let letterCount = 0;
+
+   for (let char of input) {
+       if (char >= '0' && char <= '9') {
+           numberCount++;
+       } else if ((char >= 'a' && char <= 'z') || (char >= 'A' && char <= 'Z')) {
+           letterCount++;
        }
    }
 
-   for (let key in countMap) {
-       if (countMap[key] === 2) {
-           duplicates.push(Number(key));
-       }
-   }
-
-   return duplicates;
+   return { number: numberCount, letter: letterCount };
 }
 
-
-console.log(findDuplicates([1, 3, 4, 5, 4, 3, 2, 5, 1])); 
+console.log(countNumberAndLetters("striing1528%¥")); 
