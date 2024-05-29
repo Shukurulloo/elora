@@ -855,19 +855,46 @@ Shunday function yozing, u parametridagi string ichidagi raqam va
 sonlarni sonini sanasin.
 MASALAN: countNumberAndLetters(“string152%\¥”) return {number:3, letter:6} */
 
-function countNumberAndLetters(input: string): { number: number, letter: number } {
-   let numberCount = 0;
-   let letterCount = 0;
+// function countNumberAndLetters(input: string): { number: number, letter: number } {
+//    let numberCount = 0;
+//    let letterCount = 0;
 
-   for (let char of input) {
-       if (char >= '0' && char <= '9') {
-           numberCount++;
-       } else if ((char >= 'a' && char <= 'z') || (char >= 'A' && char <= 'Z')) {
-           letterCount++;
+//    for (let char of input) {
+//        if (char >= '0' && char <= '9') {
+//            numberCount++;
+//        } else if ((char >= 'a' && char <= 'z') || (char >= 'A' && char <= 'Z')) {
+//            letterCount++;
+//        }
+//    }
+
+//    return { number: numberCount, letter: letterCount };
+// }
+
+// console.log(countNumberAndLetters("striing1528%¥")); 
+
+
+
+/** ZS-TASK:
+
+Shunday function yozing, 
+u parametridagi arrayni ichidagi 1 marta kelgan elemnetni qaytarsin.
+MASALAN: singleNumber([4, 2, 1, 2, 1]) return 4
+ */
+
+function singleNumber(nums: number[]): number | undefined {
+   const countMap = new Map<number, number>();
+
+   for (let num of nums) {
+       countMap.set(num, (countMap.get(num) || 0) + 1);
+   }
+
+   for (let [num, count] of countMap) {
+       if (count === 1) {
+           return num;
        }
    }
 
-   return { number: numberCount, letter: letterCount };
+   return undefined;
 }
 
-console.log(countNumberAndLetters("striing1528%¥")); 
+console.log(singleNumber([4, 2, 1, 2, 1])); // 4
