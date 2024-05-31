@@ -881,20 +881,48 @@ u parametridagi arrayni ichidagi 1 marta kelgan elemnetni qaytarsin.
 MASALAN: singleNumber([4, 2, 1, 2, 1]) return 4
  */
 
-function singleNumber(nums: number[]): number | undefined {
-   const countMap = new Map<number, number>();
+// function singleNumber(nums: number[]): number | undefined {
+//    const countMap = new Map<number, number>();
 
-   for (let num of nums) {
-       countMap.set(num, (countMap.get(num) || 0) + 1);
+//    for (let num of nums) {
+//        countMap.set(num, (countMap.get(num) || 0) + 1);
+//    }
+
+//    for (let [num, count] of countMap) {
+//        if (count === 1) {
+//            return num;
+//        }
+//    }
+
+//    return undefined;
+// }
+
+// console.log(singleNumber([4, 2, 1, 2, 1])); // 4
+
+
+
+/** ZT-TASK:
+
+Shunday function yozing, 
+u parametridagi string ichida 1 martadan ortiq qaytarilmagan birinchi harf indeksini qaytarsin.
+MASALAN: firstUniqueCharIndex(“stamp”) return 0*/
+
+function firstUniqueCharIndex(str: string): number {
+   const charCount: { [key: string]: number } = {};
+
+   for (let char of str) {
+       charCount[char] = (charCount[char] || 0) + 1;
    }
-
-   for (let [num, count] of countMap) {
-       if (count === 1) {
-           return num;
+   for (let i = 0; i < str.length; i++) {
+       if (charCount[str[i]] === 1) {
+           return i;
        }
    }
 
-   return undefined;
+ 
+   return -1;
 }
 
-console.log(singleNumber([4, 2, 1, 2, 1])); // 4
+console.log(firstUniqueCharIndex("ssttaampp"));
+
+
