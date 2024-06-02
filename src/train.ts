@@ -907,22 +907,52 @@ Shunday function yozing,
 u parametridagi string ichida 1 martadan ortiq qaytarilmagan birinchi harf indeksini qaytarsin.
 MASALAN: firstUniqueCharIndex(“stamp”) return 0*/
 
-function firstUniqueCharIndex(str: string): number {
-   const charCount: { [key: string]: number } = {};
+// function firstUniqueCharIndex(str: string): number {
+//    const charCount: { [key: string]: number } = {};
 
-   for (let char of str) {
-       charCount[char] = (charCount[char] || 0) + 1;
-   }
-   for (let i = 0; i < str.length; i++) {
-       if (charCount[str[i]] === 1) {
-           return i;
-       }
-   }
+//    for (let char of str) {
+//        charCount[char] = (charCount[char] || 0) + 1;
+//    }
+//    for (let i = 0; i < str.length; i++) {
+//        if (charCount[str[i]] === 1) {
+//            return i;
+//        }
+//    }
 
  
-   return -1;
+//    return -1;
+// }
+
+// console.log(firstUniqueCharIndex("ssttaampp"));
+
+
+
+
+/** ZU-TASK:
+
+Shunday function yozing, 
+u parametridagi array ichida takrorlanmagan raqamlar yig'indisini qaytarsin.
+MASALAN: sumOfUnique([1,2,3,2]) return 4 */
+
+
+function sumOfUnique(nums: number[]): number {
+   const count: { [key: number]: number } = {};
+   
+   for (let num of nums) {
+      count[num] = (count[num] || 0) + 1;
+   }
+   
+   let sum = 0;
+
+   for (let num of nums) {
+      if (count[num] === 1) {
+         sum += num;
+      }
+   }
+
+   return sum;
 }
 
-console.log(firstUniqueCharIndex("ssttaampp"));
-
-
+console.log(sumOfUnique([1, 2, 3, 2]));
+console.log(sumOfUnique([4, 5, 7, 4, 8]));
+console.log(sumOfUnique([1, 1, 1, 1])); 
