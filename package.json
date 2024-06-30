@@ -1,7 +1,7 @@
 {
-  "name": "burak",
+  "name": "Elora",
   "version": "1.0.0",
-  "description": "This is burak project backend",
+  "description": "This is Elora project backend",
   "main": "src/server.ts",
   "scripts": {
     "start": "ts-node src/server.ts",

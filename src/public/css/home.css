@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(-45deg, #110303f0, #dd6d04, #011c1afc, #7a6868);
+background: linear-gradient(135deg, #106629, #666666, #999999, #cccccc, #68e18d);
 }
 
 .home-container a {
@@ -15,17 +15,24 @@
 }
 
 .home-container .nav-item a {
-  color: #e3c08d;
+  color: #fffffe;
+
+}
+.home-container .nav-item a:hover {
+  text-decoration: underline 3px;
 }
 
 .home-container .nav-item a.disabled {
-  color: #898071;
+  color: #12254b;
 }
 
 .home-container .navigation-menu {
   position: relative;
   z-index: 10000;
-  color: #efefee;
+  color: #23955a;
+  border-radius: 6px;
+  
+  box-shadow: 10px 8px 10px 3px #080513;;
   font-size: 40px;
   font-family: monospace;
 }
@@ -56,7 +63,7 @@
 .home-container .sphere path {
   fill: url(#sphereGradient);
   stroke-width: 1px;
-  stroke: rgba(80, 80, 80, 0.35);
+  stroke: rgba(170, 9, 106, 0.867);
   backface-visibility: hidden;
 }
 

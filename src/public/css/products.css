@@ -6,7 +6,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(-45deg, #110303bf, #e37813, #011c1aba, #968383);
+  background: linear-gradient(135deg, #333333, #666666, #999999, #cccccc);
+
 }
 
 .products-container a {
@@ -15,7 +16,10 @@
 }
 
 .products-container .nav-item a {
-  color: #e3c08d;
+  color: #fffffe;
+}
+.products-container .nav-item a:hover {
+  text-decoration: underline 3px;
 }
 
 .products-container .nav-item a.disabled {
@@ -26,9 +30,12 @@
   position: absolute;
   z-index: 10000;
   top: 1%;
-  color: #efefee;
   font-size: 40px;
   font-family: monospace;
+  border-radius: 6px;
+  
+  box-shadow: 10px 8px 10px 3px #080513;
+
 }
 
 .products-container .restaurant-menu-frame {
@@ -36,6 +43,7 @@
   padding-bottom: 80px;
   width: 100%;
   height: auto;
+  border-radius: 14px;
 
   display: flex;
   flex-direction: column;
@@ -60,6 +68,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  
+}
+
+.products-container .board .dishes-table .table {
+  box-shadow: 10px 8px 10px 3px #4b4950;
 }
 
 .products-container .board .dish-container {
@@ -90,6 +104,29 @@
   height: auto;
   display: flex;
   flex-direction: column;
+}
+
+.products-container .long-input .btn-primary{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #6440fb;
+  border-radius: 10px;
+  font-family: "Nunito", sans-serif;
+  font-weight: 800;
+  font-size: 17px;
+  line-height: 33px;
+  width: 140px;
+  height: 50px;
+  color: #ffffff;
+
+  letter-spacing: -0.02em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.products-container .long-input .btn-primary:hover {
+  background-color: #5133c1;
+  text-decoration: underline;
 }
 
 .products-container .long-input label {

@@ -7,7 +7,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(-45deg, #110303bf, #e37813, #011c1aba, #968383);
+  background: linear-gradient(135deg, #106629, #666666, #999999, #cccccc, #68e18d);
+
 }
 
 .users-container a {
@@ -16,8 +17,14 @@
 }
 
 .users-container .nav-item a {
-  color: #e3c08d;
+  color: #fffffe;
+
 }
+
+.users-container .nav-item a:hover {
+  text-decoration: underline 3px;
+}
+
 
 .users-container .nav-item a.disabled {
   color: #898071;
@@ -30,6 +37,10 @@
   color: #efefee;
   font-size: 40px;
   font-family: monospace;
+  border-radius: 6px;
+
+  box-shadow: 10px 8px 10px 3px #080513;;
+
 }
 
 .users-container .users-frame {

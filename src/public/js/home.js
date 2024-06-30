@@ -33,12 +33,12 @@ function fitElementToParent(el, padding) {
           anime({
             targets: spherePathEls[i],
             stroke: {
-              value: ["rgba(255,75,75,1)", "rgba(80,80,80,.35)"],
-              duration: 500,
+              value: ["rgba(170, 9, 106, 0.867)", "rgba(0, 177, 106, 0.867)"],
+              duration: 100,
             },
             translateX: [2, -4],
             translateY: [2, -4],
-            easing: "easeOutQuad",
+            easing: "easeInOutSine",
             autoplay: false,
           })
         );
@@ -63,7 +63,7 @@ function fitElementToParent(el, padding) {
         targets: spherePathEls,
         strokeDashoffset: {
           value: [anime.setDashoffset, 0],
-          duration: 3900,
+          duration: 1900,
           easing: "easeInOutCirc",
           delay: anime.stagger(190, { direction: "reverse" }),
         },
