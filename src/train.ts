@@ -57,6 +57,56 @@
 */
 
 
+/**
+   PM2 COMMANDS:
+
+   pm2 ls
+   pm2 start dist/server.js --name=ElORA       *ishga tushirish
+   pm2 start "npm run start:prod" --name=ElORA     *bu ham ishga tushirish
+   pm2 start id   *bu avval ishga tushib  stop qilinganda kerak
+   pm2 stop id
+   pm2 delete id
+   pm2 restart id       *yangilaydi  va ↺ shu belgini soni oshadi 
+   pm2 monit            *asosiy terminalda terilsa monitoring qiladi yani loglarni, infolarni ko'rsatadi
+   pm2 kill               * pm2 ga bog'liq hamma loyiha yo'q qiliniadi ehtiyot bo'lish kerak
+
+*/
+
+
+
+
+
+// module.exports = {
+//    // bu pm2 ni docidan olindi
+//    apps: [
+//      {
+//        name: "ELORA",
+//        cwd: "./", // projectmi manzili
+//        script: "./dist/server.js ", // brinchi starting script
+//        watch: false, // workig directoryda o'zgarish bo'lsa pm2 sourcemizni auto ishga tushirmasligi uchun. yoki true
+//        env_production: {
+//          NODE_ENV: "production",
+//        },
+//        env_development: {
+//          // faqat production emas develop uchunham ishlatish mumkin hozir bu ishlagani yo'q
+//          NODE_ENV: "development",
+//        },
+//        instances: "max", // yadrosi yani 4 bo'lsa 4 karra ishledi, agar "max" qilsak bu bizning yadromizni nechta procesori bo'lsa demak ularni qo'llangan holda har birini ichida bizning backent loyihamizni biz uchun run qilib beradi
+//        exec_mode: "cluster", //bu va yuqoridagi qo'yilmasa bydefault ford mode bo'ladi
+//      },
+//    ],
+//  };
+ 
+ /**
+    processorimzdaggi yadrolar soni qanchalik ko'p bo'lsa bizning mashinamizning tezligi ham shunga bog'liq bo'ladi .
+    ya'ni bizning mashinamizning aqilligini va tezligini bizning processorimzni yadrolari belgilab beradi.
+    va aynan mana shundan bizning pm2 prosses menejerimiz hamda nodejs unimli foydalanadi.
+     agar bizning processorimzdagi yadrolar soni qanchalik ko'p bo'lsa bizning har bir yadromizda pm2 bizning nodejs applicationimzni ichiga joylab  run qilib berishni o'z zimmasiga oladi.
+     va natijada fort mode bilan yuritilgan loyiha 1 karra kuchga ega bo'lsa bizning mashinamizni to'liq ishga tushirish uchun mashinamizning prosessinning yadrolarini to'liq qo'lga olib,
+     har bir yadroni ichidagi applicationimzni pm2 run qilib bersa applicationimz backent sifatida judaham ko'p userlarni handler qilish imkoniga ega bo'ladi.
+    */
+ 
+
 
 
 
